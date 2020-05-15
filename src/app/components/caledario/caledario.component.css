@@ -1,0 +1,27 @@
+td i {
+  font-size: 32px;
+}
+
+td i:hover {
+  cursor: pointer;
+  color: aliceblue;
+}
+
+.lista-canciones {
+  height: 52vh;
+  overflow-y: scroll;
+  border: 1px solid #fff;
+  margin-top: 10%;
+}
+
+.lista-canciones::-webkit-scrollbar {
+  width: 8px;     /* Tamaño del scroll en vertical */
+  height: 8px;    /* Tamaño del scroll en horizontal */
+  display: none;  /* Ocultar scroll */
+}
+
+.addList {
+  color: bisque;
+  font-size: 21px;
+  padding: 2%;
+}

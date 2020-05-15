@@ -1,0 +1,78 @@
+{
+  "reproductor": {
+    "d120520": [
+      {
+        "artista": "Tercer Cielo",
+        "nombre": "Creere",
+        "genero": "Lento",
+        "duracion": "04:30"
+      },
+      {
+        "artista": "Tercer Cielo",
+        "nombre": "Lindo Viaje",
+        "genero": "Movido",
+        "duracion": "03:58"
+      },
+      {
+        "nombre": "Yo te extrañaré",
+        "genero": "Lento",
+        "duracion": "03:25"
+      },
+      {
+        "nombre": "Dandote Vida",
+        "genero": "Movido",
+        "duracion": "05:01"
+      },
+      {
+        "artista": "Vico C",
+        "nombre": "Necesitamos de El",
+        "genero": "Movido",
+        "duracion": "04:15"
+      },
+      {
+        "artista": "Vico C",
+        "nombre": "Desahogo",
+        "genero": "Movido",
+        "duracion": "04:05"
+      }
+    ]
+  },
+  "canciones": [
+    {
+      "artista": "Santiago Benavides",
+      "nombre": "Aprovecha",
+      "genero": "Lento",
+      "duracion": "04:05"
+    },
+    {
+      "artista": "Santiago Benavides",
+      "nombre": "La Santa Biblia",
+      "genero": "Movido",
+      "duracion": "03:58"
+    },
+    {
+      "artista": "Santiago Benavides",
+      "nombre": "Soy una oveja",
+      "genero": "Lento",
+      "duracion": "03:25"
+    },
+    {
+      "artista": "Redimidos",
+      "nombre": "Ruge",
+      "genero": "Movido",
+      "duracion": "05:01"
+    },
+    {
+      "artista": "Redimidos",
+      "nombre": "Soy asi",
+      "genero": "Movido",
+      "duracion": "04:15"
+    },
+    {
+      "artista": "Redimidos",
+      "nombre": "Desahogo",
+      "genero": "Lento",
+      "duracion": "04:05"
+    }
+  ]
+}

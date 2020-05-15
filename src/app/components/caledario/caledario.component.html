@@ -1,0 +1,42 @@
+<div class="container">
+  <div class="row">
+    <div class="col-md-12">
+      <div class="text-center addList">
+        Programar Lista de Canciones
+      </div>
+    </div>
+  </div>
+  <div class="row">
+    <div class="col-md-6">
+      <full-calendar
+      #calendar
+      defaultView="dayGridMonth"
+      [plugins]="calendarPlugins"
+      [events]="calendarEvents"
+      (dateClick)="handleDateClick($event)"
+    ></full-calendar>
+    </div>
+
+    <div class="col-md-6">
+      <div class="lista-canciones ml-5 p-2">
+        <table class="table">
+          <thead class="thead-dark">
+            <tr class="text-center">
+              <th>Canciones del Dia</th>
+            </tr>
+          </thead>
+          <tbody>
+            {{fechaSelec}}
+            <tr *ngFor="let cancion of canciones; let i=index;">
+              <td class="text-light">{{cancion.artista}} - {{cancion.nombre}}</td>
+            </tr>
+            <tr>
+              <td class="text-center"><i class="fa fa-plus-circle" title="Agregar Canciones"></i></td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+    </div>
+  </div>
+</div>
+
