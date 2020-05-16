@@ -4,6 +4,8 @@ import { NgModule } from '@angular/core';
 // tslint:disable-next-line:quotemark
 import { FullCalendarModule } from "@fullcalendar/angular";
 
+import { DragDropModule } from "@angular/cdk/drag-drop";
+
 import { AppComponent } from './app.component';
 import { MenuComponent } from './components/menu/menu.component';
 import { ReproductorComponent } from './components/reproductor/reproductor.component';
@@ -47,7 +49,8 @@ import { environment } from '../environments/environment';
     FullCalendarModule,
     HttpClientModule,
     AngularFireModule.initializeApp(environment.firebaseConfig),
-    AngularFireDatabaseModule
+    AngularFireDatabaseModule,
+    DragDropModule
   ],
   providers: [],
   bootstrap: [AppComponent]
