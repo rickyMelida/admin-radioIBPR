@@ -9,7 +9,26 @@
 
     </div>
     <div class="col-md-6">
-      <table class="table">
+      <div cdkDropListGroup>
+        <div class="example-container">
+          <h2>Available items</h2>
+
+          <div cdkDropList [cdkDropListData]="items" class="example-list" cdkDropListSortingDisabled
+            (cdkDropListDropped)="drop($event)">
+            <div class="example-box" *ngFor="let item of items" cdkDrag>{{item}}</div>
+          </div>
+        </div>
+
+        <div class="example-container">
+          <h2>Shopping basket</h2>
+
+          <div cdkDropList [cdkDropListData]="basket" class="example-list" (cdkDropListDropped)="drop($event)">
+            <div class="example-box" *ngFor="let item of basket" cdkDrag>{{item}}</div>
+          </div>
+        </div>
+      </div>
+
+      <!--table class="table">
         <thead class="thead-dark">
           <tr class="text-center">
             <th>Canciones del Dia</th>
@@ -23,7 +42,7 @@
             <td class="text-center"><i class="fa fa-plus-circle" title="Agregar Canciones"></i></td>
           </tr>
         </tbody>
-      </table>
+      </table-->
     </div>
   </div>
 </div>
