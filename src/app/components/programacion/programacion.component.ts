@@ -20,27 +20,30 @@ export class ProgramacionComponent implements OnInit {
   listaCanciones: EventInput[] = [];
 
   items = [
-    'Carrots',
-    'Tomatoes',
-    'Onions',
-    'Apples',
-    'Avocados'
+    'Zanahorias',
+    'Tomates',
+    'Cebollas',
+    'Manzanas',
+    'Aguacates'
   ];
 
   basket = [
-    'Oranges',
+    'Naranjas',
     'Bananas',
-    'Cucumbers'
+    'Pepinos'
   ];
 
   drop(event: CdkDragDrop<string[]>) {
+    console.log(event.container);
     if (event.previousContainer === event.container) {
       moveItemInArray(event.container.data, event.previousIndex, event.currentIndex);
     } else {
-      transferArrayItem(event.previousContainer.data,
+      transferArrayItem(
+        event.previousContainer.data,
         event.container.data,
         event.previousIndex,
-        event.currentIndex);
+        event.currentIndex
+        );
     }
   }
 

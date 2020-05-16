@@ -4,26 +4,19 @@
       <h1>Programar canciones</h1>
     </div>
   </div>
-  <div class="row">
-    <div class="col-md-6">
+      <div cdkDropListGroup class="row">
+        <div class="example-container col-md-6">
+          <h2 class="text-light">Available items</h2>
 
-    </div>
-    <div class="col-md-6">
-      <div cdkDropListGroup>
-        <div class="example-container">
-          <h2>Available items</h2>
-
-          <div cdkDropList [cdkDropListData]="items" class="example-list" cdkDropListSortingDisabled
-            (cdkDropListDropped)="drop($event)">
-            <div class="example-box" *ngFor="let item of items" cdkDrag>{{item}}</div>
+          <div cdkDropList [cdkDropListData]="items" (cdkDropListDropped)="drop($event)">
+            <div class="items text-light"  *ngFor="let item of items" cdkDrag>{{item}}</div>
           </div>
         </div>
 
-        <div class="example-container">
-          <h2>Shopping basket</h2>
-
-          <div cdkDropList [cdkDropListData]="basket" class="example-list" (cdkDropListDropped)="drop($event)">
-            <div class="example-box" *ngFor="let item of basket" cdkDrag>{{item}}</div>
+        <div class="example-container col-md-6">
+          <h2 class="text-light"  >Shopping basket</h2>
+          <div cdkDropList [cdkDropListData]="basket" (cdkDropListDropped)="drop($event)">
+            <div class="items text-light" *ngFor="let item of basket" cdkDrag>{{item}}</div>
           </div>
         </div>
       </div>
@@ -43,6 +36,5 @@
           </tr>
         </tbody>
       </table-->
-    </div>
-  </div>
+    
 </div>
