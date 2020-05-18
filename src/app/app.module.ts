@@ -24,9 +24,11 @@ import { routing, appRoutingProviders } from "./app.routing";
 import { ProgramacionComponent } from './components/programacion/programacion.component';
 import { ProgramarComponent } from './pages/programar/programar.component';
 
+// Configuracion para conexion de Firebase
 import { AngularFireModule } from "angularfire2";
 import { AngularFireDatabaseModule } from "angularfire2/database";
 import { environment } from '../environments/environment';
+import { AgregarCancionComponent } from './components/agregar-cancion/agregar-cancion.component';
 
 @NgModule({
   declarations: [
@@ -41,7 +43,8 @@ import { environment } from '../environments/environment';
     CalendarComponent,
     AudiosComponent,
     ProgramacionComponent,
-    ProgramarComponent
+    ProgramarComponent,
+    AgregarCancionComponent
   ],
   imports: [
     BrowserModule,
