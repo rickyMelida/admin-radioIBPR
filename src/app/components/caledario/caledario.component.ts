@@ -54,7 +54,7 @@ export class CaledarioComponent implements OnInit {
         allDay: arg.allDay
       });
       this.fechaSelec = fecha.format('DDMMYY');
-      this.canciones = this._cancion.canciones;
+      // this.canciones = this._cancion.canciones;
       // console.log(this._cancion.reproductor['d120520'][0]['artista']);
       console.log(`d${this.fechaSelec}`);
       console.log(this._cancion.reproductor[`d${this.fechaSelec}`]);

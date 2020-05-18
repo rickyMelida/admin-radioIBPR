@@ -12,7 +12,7 @@
       <h2 class="text-light">Audios Radio IBPR</h2>
     </div>
     <div class="col-md-6 text-right">
-      <a href=""><i class="fa fa-plus-circle"></i> Agregar Audio</a>
+      <a [routerLink]="['/agregar']"><i class="fa fa-plus-circle"></i> Agregar Audio</a>
     </div>
   </div>
 
@@ -21,6 +21,7 @@
       <span class="text-light">Ver <strong>10</strong> audios</span>
     </div>
     <div class="col-md-6 text-right">
+      <button class="btn btn-primary" (click)="verDatos()">Actualizar</button>
       <span class="text-light">Buscar <input type="text"></span>
     </div>
   </div>
@@ -41,10 +42,10 @@
         </thead>
         <tbody>
           <tr *ngFor="let cancion of canciones">
-            <td>Aprendimos</td>
-            <td>Santiago Benanvides</td>
-            <td>Lento</td>
-            <td>4:30</td>
+            <td>{{cancion.nombre}}</td>
+            <td>{{cancion.artista}}</td>
+            <td>{{cancion.genero}}</td>
+            <td>{{cancion.duracion}}</td>
             <td><i class="fa fa-trash"></i></td>
             <td><i class="fa fa-edit"></i></td>
             <td><i class="fa fa-play-circle"></i></td>
