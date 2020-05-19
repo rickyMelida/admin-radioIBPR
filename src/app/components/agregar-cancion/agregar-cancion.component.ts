@@ -6,10 +6,20 @@ import { Component, OnInit } from '@angular/core';
   styleUrls: ['./agregar-cancion.component.css']
 })
 export class AgregarCancionComponent implements OnInit {
-
-  constructor() { }
+  cancion: any;
+  constructor() { 
+    this.cancion = {
+      nombre: '',
+      autor: '',
+      genero: '',
+      duracion: '',
+    };
+  }
 
   ngOnInit(): void {
   }
-
+  onSubmit() {
+    alert('sale');
+    console.log(this.cancion);
+  }
 }
