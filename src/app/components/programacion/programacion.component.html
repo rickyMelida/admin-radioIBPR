@@ -4,24 +4,37 @@
       <h1>Programar canciones</h1>
     </div>
   </div>
-      <div cdkDropListGroup class="row">
-        <div class="example-container col-md-6">
-          <h2 class="text-light">Available items</h2>
+  <div cdkDropListGroup class="row">
+    <div class="example-container col-md-6">
+      <h2 class="text-light">Canciones</h2>
 
-          <div cdkDropList [cdkDropListData]="items" (cdkDropListDropped)="drop($event)">
-            <div class="items text-light"  *ngFor="let item of items" cdkDrag>{{item}}</div>
-          </div>
-        </div>
-
-        <div class="example-container col-md-6">
-          <h2 class="text-light"  >Shopping basket</h2>
-          <div cdkDropList [cdkDropListData]="basket" (cdkDropListDropped)="drop($event)">
-            <div class="items text-light" *ngFor="let item of basket" cdkDrag>{{item}}</div>
-          </div>
-        </div>
+      <div 
+        cdkDropList 
+        [cdkDropListData]="audios" 
+        (cdkDropListDropped)="drop($event)" 
+        [cdkDropListEnterPredicate]="false" 
+        class="ml-3"
+      >
+        <div class="items text-light" *ngFor="let audio of audios" cdkDrag>{{audio}}</div>
       </div>
+    </div>
 
-      <!--table class="table">
+    <div class="example-container col-md-6">
+      <h2 class="text-light">Reproductor</h2>
+
+
+      <div 
+        cdkDropList 
+        [cdkDropListData]="reproductor" 
+        (cdkDropListDropped)="drop($event)" 
+        class="ml-3"
+        >
+        <div class="items text-light" *ngFor="let reproduce of reproductor" cdkDrag >{{reproduce}}</div>
+      </div>
+    </div>
+  </div>
+
+  <!--table class="table">
         <thead class="thead-dark">
           <tr class="text-center">
             <th>Canciones del Dia</th>
@@ -36,5 +49,5 @@
           </tr>
         </tbody>
       </table-->
-    
+
 </div>
