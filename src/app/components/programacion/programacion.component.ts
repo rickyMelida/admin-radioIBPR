@@ -1,12 +1,13 @@
 import { Component, OnInit, ViewChild } from '@angular/core';
-import { FullCalendarComponent } from "@fullcalendar/angular";
-import { EventInput, View } from "@fullcalendar/core";
+import { FullCalendarComponent } from '@fullcalendar/angular';
+import { EventInput, View } from '@fullcalendar/core';
+import { ActivatedRoute, Params } from '@angular/router';
 // import dayGridPlugin from "@fullcalendar/daygrid";
 // import timeGrigPlugin from "@fullcalendar/timegrid";
-import interactionPlugin from "@fullcalendar/interaction";
+import interactionPlugin from '@fullcalendar/interaction';
 import resurceTimelineDay from '@fullcalendar/resource-timeline';
 
-import { CdkDragDrop, moveItemInArray, transferArrayItem, copyArrayItem } from "@angular/cdk/drag-drop";
+import { CdkDragDrop, moveItemInArray, transferArrayItem, copyArrayItem } from '@angular/cdk/drag-drop';
 
 @Component({
   selector: 'app-programacion',
@@ -29,6 +30,8 @@ export class ProgramacionComponent implements OnInit {
     'Santiago Benavides - Que facil es',
     'Rescate - Soy Jose'
   ];
+
+  fecha;
   /*'Naranjas',
     'Bananas',
     'Pepinos'
@@ -36,6 +39,14 @@ export class ProgramacionComponent implements OnInit {
   */
 
   reproductor = [''];
+
+  constructor(private rutaActual: ActivatedRoute) {
+
+    this.fecha = this.rutaActual.snapshot.params.fecha;
+  }
+
+  ngOnInit(): void {
+  }
 
   drop(event: CdkDragDrop<string[]>) {
     // let elemento = this.items[event.previousIndex];
@@ -51,16 +62,13 @@ export class ProgramacionComponent implements OnInit {
         event.currentIndex
       );
       // Eliminamos el cuadro e blanco una vez que tenga datos
-      if(this.reproductor.length > 1 && this.reproductor[this.reproductor.length - 1] === "" ) {
+      if (this.reproductor.length > 1 && this.reproductor[this.reproductor.length - 1] === "") {
         this.reproductor.pop();
       }
     }
 
-    console.log(this.reproductor);
-  }
-  constructor() { }
-
-  ngOnInit(): void {
+    // console.log(this.reproductor);
+    console.log(this.rutaActual.snapshot.params);
   }
 
 }

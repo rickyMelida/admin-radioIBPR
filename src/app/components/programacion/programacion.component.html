@@ -8,11 +8,11 @@
     <div class="example-container col-md-6">
       <h2 class="text-light">Canciones</h2>
 
-      <div 
-        cdkDropList 
-        [cdkDropListData]="audios" 
-        (cdkDropListDropped)="drop($event)" 
-        [cdkDropListEnterPredicate]="false" 
+      <div
+        cdkDropList
+        [cdkDropListData]="audios"
+        (cdkDropListDropped)="drop($event)"
+        [cdkDropListEnterPredicate]="false"
         class="ml-3"
       >
         <div class="items text-light" *ngFor="let audio of audios; index as i" cdkDrag>{{i+1}}-{{audio}}</div>
@@ -21,12 +21,12 @@
 
     <div class="example-container col-md-6">
       <h2 class="text-light">Reproductor</h2>
-      <h5 class="text-light text-center">17 de Junio de 2020</h5>
+      <h5 class="text-light text-center">{{fecha}}</h5>
 
-      <div 
-        cdkDropList 
-        [cdkDropListData]="reproductor" 
-        (cdkDropListDropped)="drop($event)" 
+      <div
+        cdkDropList
+        [cdkDropListData]="reproductor"
+        (cdkDropListDropped)="drop($event)"
         class="ml-3"
         >
         <div class="items text-light" *ngFor="let reproduce of reproductor;index as i" cdkDrag >{{i+1}}-{{reproduce}}</div>

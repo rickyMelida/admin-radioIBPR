@@ -1,4 +1,4 @@
-import { Component, OnInit, ViewChild } from '@angular/core';
+import { Component, OnInit, ViewChild, Input } from '@angular/core';
 import { FullCalendarComponent } from "@fullcalendar/angular";
 import { EventInput, View } from '@fullcalendar/core';
 import dayGridPlugin from '@fullcalendar/daygrid';
@@ -16,13 +16,13 @@ import { Canciones } from '../../interfaces/canciones.interface';
 })
 export class CaledarioComponent implements OnInit {
   @ViewChild('calendar') calendarComponent: FullCalendarComponent;
-  fechaSelec: string;
+  fechaSelec;
   calendarVisible = true;
   calendarPlugins = [dayGridPlugin, timeGrigPlugin, interactionPlugin];
   calendarWeekends = true;
   calendarEvents: EventInput[] = [
-    { title: 'Nuevo Evento', start: new Date() }
-  ];
+    { /*title: 'Nuevo Evento', start: new Date()*/ }
+];
 
   public canciones: Array<Canciones>;
 
@@ -30,6 +30,7 @@ export class CaledarioComponent implements OnInit {
 
   ngOnInit(): void {
     moment.locale('es');
+    this.fechaSelec = moment().format('YYYY-MM-dd');
   }
 
   toggleVisible() {
@@ -48,12 +49,13 @@ export class CaledarioComponent implements OnInit {
   handleDateClick(arg) {
     if (confirm('Desea agregar un nuevo evento ' + arg.dateStr + ' ?')) {
       const fecha = moment(arg.dateStr);
-      this.calendarEvents = this.calendarEvents.concat({ // add new event data. must create new array
+      this.calendarEvents = this.calendarEvents.concat({
         title: 'New Event',
         start: arg.date,
-        allDay: arg.allDay
+        allDay: arg.allDay,
+        backgroundColor: '#024A86'
       });
-      this.fechaSelec = fecha.format('DDMMYY');
+      this.fechaSelec = fecha.format('DD-MM-YY');
       // this.canciones = this._cancion.canciones;
       // console.log(this._cancion.reproductor['d120520'][0]['artista']);
       console.log(`d${this.fechaSelec}`);

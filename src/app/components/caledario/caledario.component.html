@@ -26,12 +26,12 @@
             </tr>
           </thead>
           <tbody>
-            {{fechaSelec}}
+            <span class="text-light text-center d-block mx-auto my-2">{{fechaSelec}}</span>
             <tr *ngFor="let cancion of canciones; let i=index;">
               <td class="text-light">{{cancion.artista}} - {{cancion.nombre}}</td>
             </tr>
             <tr>
-              <td class="text-center"><i class="fa fa-plus-circle" [routerLink]="['/programar']" title="Agregar Canciones"></i></td>
+              <td class="text-center"><i class="fa fa-plus-circle" [routerLink]="['/programar', fechaSelec]" title="Agregar Canciones"></i></td>
             </tr>
           </tbody>
         </table>
