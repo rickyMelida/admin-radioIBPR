@@ -15,13 +15,13 @@
         [cdkDropListEnterPredicate]="false" 
         class="ml-3"
       >
-        <div class="items text-light" *ngFor="let audio of audios" cdkDrag>{{audio}}</div>
+        <div class="items text-light" *ngFor="let audio of audios; index as i" cdkDrag>{{i+1}}-{{audio}}</div>
       </div>
     </div>
 
     <div class="example-container col-md-6">
       <h2 class="text-light">Reproductor</h2>
-
+      <h5 class="text-light text-center">17 de Junio de 2020</h5>
 
       <div 
         cdkDropList 
@@ -29,7 +29,7 @@
         (cdkDropListDropped)="drop($event)" 
         class="ml-3"
         >
-        <div class="items text-light" *ngFor="let reproduce of reproductor" cdkDrag >{{reproduce}}</div>
+        <div class="items text-light" *ngFor="let reproduce of reproductor;index as i" cdkDrag >{{i+1}}-{{reproduce}}</div>
       </div>
     </div>
   </div>
