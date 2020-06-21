@@ -24,13 +24,9 @@
           </select>
         </div>
         <div class="form-group">
-          <label for="duracion" class="text-light">Duración</label>
-          <input type="text" class="form-control" name="duracion" placeholder="mm:ss" [(ngModel)]="cancion.duracion" #duracion="ngModel">
-        </div>
-        <!--div class="form-group">
           <label for="audio" class="text-light">Agregue el audio</label>
-          <input type="file" class="form-control-file text-light" id="audio" #audio="ngModel" [(ngModel)]="cancion.audio">
-        </div-->
+          <input type="file" class="form-control-file text-light" name="audio" #audio="ngModel" [(ngModel)]="cancion.audio">
+        </div>
         <button type="submit" class="btn btn-primary btn-block">Guardar</button>
       </form>
     </div>

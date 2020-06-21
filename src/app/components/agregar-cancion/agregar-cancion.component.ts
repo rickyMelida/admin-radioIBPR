@@ -7,12 +7,13 @@ import { Component, OnInit } from '@angular/core';
 })
 export class AgregarCancionComponent implements OnInit {
   cancion: any;
-  constructor() { 
+  constructor() {
     this.cancion = {
       nombre: '',
       autor: '',
       genero: '',
       duracion: '',
+      audio: null
     };
   }
 
@@ -21,5 +22,6 @@ export class AgregarCancionComponent implements OnInit {
   onSubmit() {
     alert('sale');
     console.log(this.cancion);
+
   }
 }
