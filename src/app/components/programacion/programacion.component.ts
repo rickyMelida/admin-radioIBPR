@@ -38,23 +38,25 @@ export class ProgramacionComponent implements OnInit {
   reproductor = [''];
 
   drop(event: CdkDragDrop<string[]>) {
-    //let elemento = this.items[event.previousIndex];
-    
-    if (event.previousContainer === event.container) {  
+    // let elemento = this.items[event.previousIndex];
+
+    if (event.previousContainer === event.container) {
       moveItemInArray(event.container.data, event.previousIndex, event.currentIndex);
     } else {
-      //Agregamos en el array de las canastas el elemento seleccionado si ya no esta vacio
+      // Agregamos en el array de las canastas el elemento seleccionado si ya no esta vacio
       copyArrayItem(
         event.previousContainer.data,
         event.container.data,
         event.previousIndex,
         event.currentIndex
       );
-      //Eliminamos el cuadro e blanco una vez que tenga datos
-      if(this.reproductor.length > 1 && this.reproductor[this.reproductor.length-1] == "" ) {
+      // Eliminamos el cuadro e blanco una vez que tenga datos
+      if(this.reproductor.length > 1 && this.reproductor[this.reproductor.length - 1] === "" ) {
         this.reproductor.pop();
       }
     }
+
+    console.log(this.reproductor);
   }
   constructor() { }
 
