@@ -30,7 +30,7 @@ export class CaledarioComponent implements OnInit {
 
   ngOnInit(): void {
     moment.locale('es');
-    this.fechaSelec = moment().format('YYYY-MM-dd');
+    this.fechaSelec = moment().format('DD-MM-YYYY');
   }
 
   toggleVisible() {
@@ -55,7 +55,7 @@ export class CaledarioComponent implements OnInit {
         allDay: arg.allDay,
         backgroundColor: '#024A86'
       });
-      this.fechaSelec = fecha.format('DD-MM-YY');
+      this.fechaSelec = fecha.format('DD-MM-YYYY');
       // this.canciones = this._cancion.canciones;
       // console.log(this._cancion.reproductor['d120520'][0]['artista']);
       console.log(`d${this.fechaSelec}`);
