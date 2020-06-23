@@ -1,7 +1,9 @@
 export interface Canciones {
-  id: string;
+  _id: string;
   nombre: string;
   autor: string;
   tipo: string;
   duracion: number;
+  _v: number;
+
 }

@@ -10,7 +10,7 @@
 
       <div cdkDropList [cdkDropListData]="audios" (cdkDropListDropped)="drop($event)"
         [cdkDropListEnterPredicate]="false" class="ml-3">
-        <div class="items text-light" *ngFor="let audio of audios; index as i" cdkDrag>{{i+1}}-{{audio}}</div>
+        <div class="items text-light" *ngFor="let audios of audiosTodos; index as i" cdkDrag>{{i+1}}-{{audios.autor}} - {{audios.nombre}}</div>
       </div>
     </div>
 
@@ -28,21 +28,4 @@
       </div>
     </div>
   </div>
-
-  <!--table class="table">
-        <thead class="thead-dark">
-          <tr class="text-center">
-            <th>Canciones del Dia</th>
-          </tr>
-        </thead>
-        <tbody>
-          <tr>
-            <td class="text-light">Musica</td>
-          </tr>
-          <tr>
-            <td class="text-center"><i class="fa fa-plus-circle" title="Agregar Canciones"></i></td>
-          </tr>
-        </tbody>
-      </table-->
-
 </div>

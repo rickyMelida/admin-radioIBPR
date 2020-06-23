@@ -39,12 +39,14 @@ export class ProgramacionComponent implements OnInit {
 
   fecha;
   /*'Naranjas',
-    'Bananas',
-    'Pepinos'
-    cdkDropListDisabled
+  'Bananas',
+  'Pepinos'
+  cdkDropListDisabled
   */
-
-  reproductor = [''];
+ cancions;
+ reproductor = [''];
+ audiosTodos: Array<Canciones>;
+ //audios:Array<Canciones> ;
 
   constructor(private rutaActual: ActivatedRoute, private _audiosSevice: CancionesService) {
 
@@ -56,6 +58,8 @@ export class ProgramacionComponent implements OnInit {
     this._audiosSevice.getCancions().subscribe(
       res => {
         console.log(res);
+        this.cancions = res;
+        this.audiosTodos = this.cancions.data;
       },
       err => {
         console.log(err);
@@ -82,8 +86,9 @@ export class ProgramacionComponent implements OnInit {
       }
     }
 
-    // console.log(this.reproductor);
-    console.log(this.rutaActual.snapshot.params);
+    console.log(this.audiosTodos[1].duracion);
+     // console.log(this.cancions.data[1].nombre);
+    //console.log(this.rutaActual.snapshot.params);
   }
 
 }
