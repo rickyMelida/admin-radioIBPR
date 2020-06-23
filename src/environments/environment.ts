@@ -4,15 +4,6 @@
 
 export const environment = {
   production: false,
-  firebaseConfig : {
-    apiKey: "AIzaSyDsyvvo4owd85z2GxIqQP2e1LxxtiSGsP0",
-    authDomain: "radio-ibpr.firebaseapp.com",
-    databaseURL: "https://radio-ibpr.firebaseio.com",
-    projectId: "radio-ibpr",
-    storageBucket: "radio-ibpr.appspot.com",
-    messagingSenderId: "109026909657",
-    appId: "1:109026909657:web:daec940408dc5f3fde8dc8"
-  }
 };
 
 /*

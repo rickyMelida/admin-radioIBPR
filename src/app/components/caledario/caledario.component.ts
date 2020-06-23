@@ -1,18 +1,19 @@
 import { Component, OnInit, ViewChild, Input } from '@angular/core';
-import { FullCalendarComponent } from "@fullcalendar/angular";
+import { FullCalendarComponent } from '@fullcalendar/angular';
 import { EventInput, View } from '@fullcalendar/core';
 import dayGridPlugin from '@fullcalendar/daygrid';
-import timeGrigPlugin from "@fullcalendar/timegrid";
-import interactionPlugin from "@fullcalendar/interaction";
+import timeGrigPlugin from '@fullcalendar/timegrid';
+import interactionPlugin from '@fullcalendar/interaction';
+import * as moment from 'moment';
+
 import { CancionesService } from '../../services/canciones.service';
-import * as moment from "moment";
-import { element } from 'protractor';
 import { Canciones } from '../../interfaces/canciones.interface';
 
 @Component({
   selector: 'app-caledario',
   templateUrl: './caledario.component.html',
-  styleUrls: ['./caledario.component.css']
+  styleUrls: ['./caledario.component.css'],
+  providers: [CancionesService]
 })
 export class CaledarioComponent implements OnInit {
   @ViewChild('calendar') calendarComponent: FullCalendarComponent;
@@ -26,11 +27,12 @@ export class CaledarioComponent implements OnInit {
 
   public canciones: Array<Canciones>;
 
-  constructor( public _cancion: CancionesService ) { }
+  constructor( private _audios: CancionesService ) { }
 
   ngOnInit(): void {
     moment.locale('es');
     this.fechaSelec = moment().format('DD-MM-YYYY');
+    console.log(this._audios.ejemplo());
   }
 
   toggleVisible() {
@@ -59,7 +61,7 @@ export class CaledarioComponent implements OnInit {
       // this.canciones = this._cancion.canciones;
       // console.log(this._cancion.reproductor['d120520'][0]['artista']);
       console.log(`d${this.fechaSelec}`);
-      console.log(this._cancion.reproductor[`d${this.fechaSelec}`]);
+      //console.log(this._cancion.reproductor[`d${this.fechaSelec}`]);
 
     }
   }

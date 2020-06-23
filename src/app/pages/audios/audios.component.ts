@@ -14,10 +14,10 @@ export class AudiosComponent implements OnInit {
 
   ngOnInit(): void {
     this.canciones = [];
-    this.verDatos();
+    // this.verDatos();
   }
 
-  verDatos() {
+  /*verDatos() {
     this.cancionService.getCanciones().snapshotChanges()
     .subscribe( cancion => {
       cancion.forEach( element => {
@@ -28,6 +28,6 @@ export class AudiosComponent implements OnInit {
     });
 
     console.log(this.canciones);
-  }
+  }*/
 
 }

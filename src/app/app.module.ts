@@ -18,7 +18,7 @@ import { LoginComponent } from './pages/login/login.component';
 import { CalendarComponent } from './pages/calendar/calendar.component';
 import { AudiosComponent } from './pages/audios/audios.component';
 
-import { HttpClientModule } from "@angular/common/http";
+import { HttpClientModule } from '@angular/common/http';
 
 // tslint:disable-next-line:quotemark
 import { routing, appRoutingProviders } from "./app.routing";
@@ -26,9 +26,6 @@ import { ProgramacionComponent } from './components/programacion/programacion.co
 import { ProgramarComponent } from './pages/programar/programar.component';
 
 // Configuracion para conexion de Firebase
-import { AngularFireModule } from "angularfire2";
-import { AngularFireDatabaseModule } from "angularfire2/database";
-import { environment } from '../environments/environment';
 import { AgregarCancionComponent } from './components/agregar-cancion/agregar-cancion.component';
 
 @NgModule({
@@ -52,8 +49,6 @@ import { AgregarCancionComponent } from './components/agregar-cancion/agregar-ca
     routing,
     FullCalendarModule,
     HttpClientModule,
-    AngularFireModule.initializeApp(environment.firebaseConfig),
-    AngularFireDatabaseModule,
     DragDropModule,
     FormsModule
   ],

@@ -9,12 +9,18 @@ import resurceTimelineDay from '@fullcalendar/resource-timeline';
 
 import { CdkDragDrop, moveItemInArray, transferArrayItem, copyArrayItem } from '@angular/cdk/drag-drop';
 
+// Importamos nuestros servicios
+import { CancionesService } from "../../services/canciones.service";
+import { Canciones } from "../../interfaces/canciones.interface";
+
 @Component({
   selector: 'app-programacion',
   templateUrl: './programacion.component.html',
-  styleUrls: ['./programacion.component.css']
+  styleUrls: ['./programacion.component.css'],
+  providers: [CancionesService]
 })
 export class ProgramacionComponent implements OnInit {
+
 
   @ViewChild('programacion') programandoComponent: FullCalendarComponent;
   calendarPlugins = [resurceTimelineDay, interactionPlugin];
@@ -40,12 +46,21 @@ export class ProgramacionComponent implements OnInit {
 
   reproductor = [''];
 
-  constructor(private rutaActual: ActivatedRoute) {
+  constructor(private rutaActual: ActivatedRoute, private _audiosSevice: CancionesService) {
 
     this.fecha = this.rutaActual.snapshot.params.fecha;
+
   }
 
   ngOnInit(): void {
+    this._audiosSevice.getCancions().subscribe(
+      res => {
+        console.log(res);
+      },
+      err => {
+        console.log(err);
+      }
+      );
   }
 
   drop(event: CdkDragDrop<string[]>) {
