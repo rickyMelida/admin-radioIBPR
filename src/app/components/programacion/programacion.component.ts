@@ -26,7 +26,7 @@ export class ProgramacionComponent implements OnInit {
   calendarPlugins = [resurceTimelineDay, interactionPlugin];
   listaCanciones: EventInput[] = [];
 
-  audios = [
+  /*audios = [
     'Santiago Benavides - Aprovecha',
     'Funky - Sal y Luz',
     'Hillsong - Dios Eterno',
@@ -35,7 +35,7 @@ export class ProgramacionComponent implements OnInit {
     'Juan Luis Guerra - Las avispas',
     'Santiago Benavides - Que facil es',
     'Rescate - Soy Jose'
-  ];
+  ];*/
 
   fecha;
   /*'Naranjas',
@@ -44,9 +44,15 @@ export class ProgramacionComponent implements OnInit {
   cdkDropListDisabled
   */
  cancions;
- reproductor = [''];
+ reproductor: Array<Canciones> = [{
+   _id: '',
+   nombre: '',
+  autor: '',
+  tipo: '',
+  _v: null,
+  duracion: null
+ }];
  audiosTodos: Array<Canciones>;
- //audios:Array<Canciones> ;
 
   constructor(private rutaActual: ActivatedRoute, private _audiosSevice: CancionesService) {
 
@@ -68,10 +74,16 @@ export class ProgramacionComponent implements OnInit {
   }
 
   drop(event: CdkDragDrop<string[]>) {
-    // let elemento = this.items[event.previousIndex];
+      // let elemento = this.audiosTodos[event.previousIndex];
+     // let elemento =event;
+
 
     if (event.previousContainer === event.container) {
-      moveItemInArray(event.container.data, event.previousIndex, event.currentIndex);
+      moveItemInArray(
+        event.container.data,
+        event.previousIndex,
+        event.currentIndex
+      );
     } else {
       // Agregamos en el array de las canastas el elemento seleccionado si ya no esta vacio
       copyArrayItem(
@@ -81,14 +93,14 @@ export class ProgramacionComponent implements OnInit {
         event.currentIndex
       );
       // Eliminamos el cuadro e blanco una vez que tenga datos
-      if (this.reproductor.length > 1 && this.reproductor[this.reproductor.length - 1] === "") {
+      /*if (this.reproductor.length > 1 && this.reproductor[this.reproductor.length - 1] === '') {
         this.reproductor.pop();
-      }
+      }*/
     }
 
-    console.log(this.audiosTodos[1].duracion);
-     // console.log(this.cancions.data[1].nombre);
-    //console.log(this.rutaActual.snapshot.params);
+     // console.log(event.container.data[0].nombre);
+    // console.log(this.reproductor[0]._id);
+    // console.log(this.rutaActual.snapshot.params);
   }
 
 }
