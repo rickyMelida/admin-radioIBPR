@@ -18,10 +18,10 @@
       <h2 class="text-light">Reproductor</h2>
       <h5 class="text-light text-center">{{fecha}}</h5>
 
-      <div cdkDropList [cdkDropListData]="reproductor" (cdkDropListDropped)="drop($event)" class="ml-3">
+      <div cdkDropList [cdkDropListData]="datos" (cdkDropListDropped)="drop($event)" class="ml-3">
         <div
           class="items text-light"
-          *ngFor="let reproduce of reproductor;index as i"
+          *ngFor="let reproduce of datos;index as i"
           cdkDrag
         >
           {{i+1}}-{{reproduce.autor}} - {{reproduce.nombre}}

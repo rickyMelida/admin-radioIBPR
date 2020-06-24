@@ -12,6 +12,7 @@ import { CdkDragDrop, moveItemInArray, transferArrayItem, copyArrayItem } from '
 // Importamos nuestros servicios
 import { CancionesService } from "../../services/canciones.service";
 import { Canciones } from "../../interfaces/canciones.interface";
+import { Reproductor } from "../../interfaces/reproductor.interface";
 
 @Component({
   selector: 'app-programacion',
@@ -38,21 +39,30 @@ export class ProgramacionComponent implements OnInit {
   ];*/
 
   fecha;
-  /*'Naranjas',
-  'Bananas',
-  'Pepinos'
-  cdkDropListDisabled
-  */
- cancions;
- reproductor: Array<Canciones> = [{
-   _id: '',
-   nombre: '',
-  autor: '',
-  tipo: '',
-  _v: null,
-  duracion: null
- }];
- audiosTodos: Array<Canciones>;
+
+  //Iniciamos todas las canciones que se van a guardar en la seccion de reproduccion en null o vacio
+  datos: Array<Canciones> = [{
+    _id: null,
+    nombre: '',
+    autor: '',
+    tipo: '',
+    duracion: null,
+    _v: null
+  }];
+
+  //Iniciamos todas las canciones que se van a guardar en la seccion de reproduccion en null o vacio
+  reproductor: Array<Reproductor> = [{
+    fecha: '',
+    pos: null,
+    nombre: '',
+    autor: '',
+    tipo: '',
+    duracion: null,
+    horaInicio: null,
+    horaFin: null
+  }];
+
+  audiosTodos: Array<Canciones>;
 
   constructor(private rutaActual: ActivatedRoute, private _audiosSevice: CancionesService) {
 
@@ -64,25 +74,21 @@ export class ProgramacionComponent implements OnInit {
     this._audiosSevice.getCancions().subscribe(
       res => {
         console.log(res);
-        this.cancions = res;
-        this.audiosTodos = this.cancions.data;
+        this.audiosTodos = res.data;
       },
       err => {
         console.log(err);
       }
-      );
+    );
   }
 
   drop(event: CdkDragDrop<string[]>) {
-      // let elemento = this.audiosTodos[event.previousIndex];
-     // let elemento =event;
-
 
     if (event.previousContainer === event.container) {
       moveItemInArray(
         event.container.data,
         event.previousIndex,
-        event.currentIndex
+        event.currentIndex,
       );
     } else {
       // Agregamos en el array de las canastas el elemento seleccionado si ya no esta vacio
@@ -93,14 +99,34 @@ export class ProgramacionComponent implements OnInit {
         event.currentIndex
       );
       // Eliminamos el cuadro e blanco una vez que tenga datos
-      /*if (this.reproductor.length > 1 && this.reproductor[this.reproductor.length - 1] === '') {
-        this.reproductor.pop();
-      }*/
+      if (this.datos.length > 1 && this.datos[this.datos.length - 1].duracion === null) {
+        this.datos.pop();
+      }
+
+      this.reproductor.push({
+        fecha: this.fecha,
+        pos: event.currentIndex + 1,
+        nombre: this.datos[this.datos.length-1].nombre,
+        autor: this.datos[this.datos.length-1].autor,
+        tipo: this.datos[this.datos.length-1].tipo,
+        duracion: this.datos[this.datos.length-1].duracion,
+        horaInicio: 0,
+        horaFin: this.datos[this.datos.length-1].duracion
+      });
     }
 
-     // console.log(event.container.data[0].nombre);
-    // console.log(this.reproductor[0]._id);
-    // console.log(this.rutaActual.snapshot.params);
+    
+
+    if (this.reproductor.length > 1 && this.reproductor[this.reproductor.length - 1].duracion === null) {
+      this.datos.pop();
+    }
+
+    //console.log(event.currentIndex + 1);
+  }
+
+
+  tiempoReproduccion() {
+
   }
 
 }
