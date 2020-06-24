@@ -32,7 +32,14 @@ export class CaledarioComponent implements OnInit {
   ngOnInit(): void {
     moment.locale('es');
     this.fechaSelec = moment().format('DD-MM-YYYY');
-    console.log(this._audios.ejemplo());
+    this._audios.getCancions().subscribe(
+      res => {
+        console.log(res);
+      },
+      err => {
+        console.log(err);
+      }
+      );
   }
 
   toggleVisible() {
