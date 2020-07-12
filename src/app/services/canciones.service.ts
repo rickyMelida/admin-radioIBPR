@@ -19,6 +19,14 @@ export class CancionesService {
     return 'Hola desde el servicion Cancion';
   }
 
+  compruebaRuta(data): Observable<any> {
+    return this._http.post(this.url + 'folder', data);
+  }
+
+  add(data): Observable<any> {
+    return this._http.post(this.url + 'add',data);
+  }
+
   // Extraemos todas las canciones
   getCancions(): Observable<any> {
     return this._http.get(this.url + 'canciones');

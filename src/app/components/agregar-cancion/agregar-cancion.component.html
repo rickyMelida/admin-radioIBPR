@@ -1,11 +1,11 @@
 <app-menu></app-menu>
 
 <div class="container">
-  <h1 class="text-center text-light">Agregar Canciones</h1>
+  <h1 class="text-center text-light">Agregar Audio</h1>
   <div class="row">
     <div class="col-md-6 clearfix m-auto">
 
-      <form (ngSubmit)="onSubmit()" #cancionesForm="ngForm">
+      <form (ngSubmit)="onSubmit($event)" #cancionesForm="ngForm">
         <div class="form-group">
           <label for="nombre" class="text-light">Nombre</label>
           <input type="text" class="form-control" name="nombre" placeholder="Nombre del audio"  #nombre="ngModel" [(ngModel)]="cancion.nombre" >
@@ -15,8 +15,8 @@
           <input type="text" class="form-control" name="autor" placeholder="Autor" [(ngModel)]="cancion.autor" #autor="ngModel">
         </div>
         <div class="form-group">
-          <label for="genero" class="text-light">Género</label>
-          <select class="form-control" name="genero" [(ngModel)]="cancion.genero" #genero="ngModel">
+          <label for="genero" class="text-light">Tipo</label>
+          <select class="form-control" name="tipo" [(ngModel)]="cancion.tipo" #genero="ngModel">
             <option>Lento</option>
             <option>Movido</option>
             <option>Predica</option>
@@ -25,7 +25,7 @@
         </div>
         <div class="form-group">
           <label for="audio" class="text-light">Agregue el audio</label>
-          <input type="file" class="form-control-file text-light" name="audio" #audio="ngModel" [(ngModel)]="cancion.audio">
+          <input type="file" class="form-control-file text-light" (change)="onFileChange($event)">
         </div>
         <button type="submit" class="btn btn-primary btn-block">Guardar</button>
       </form>
