@@ -40,7 +40,7 @@ export class ProgramacionComponent implements OnInit {
 
   fecha;
 
-  //Iniciamos todas las canciones que se van a guardar en la seccion de reproduccion en null o vacio
+  // Iniciamos todas las canciones que se van a guardar en la seccion de reproduccion en null o vacio
   datos: Array<Canciones> = [{
     _id: null,
     nombre: '',
@@ -50,7 +50,7 @@ export class ProgramacionComponent implements OnInit {
     _v: null
   }];
 
-  //Iniciamos todas las canciones que se van a guardar en la seccion de reproduccion en null o vacio
+  // Iniciamos todas las canciones que se van a guardar en la seccion de reproduccion en null o vacio
   reproductor: Array<Reproductor> = [{
     fecha: '',
     pos: null,
@@ -115,7 +115,7 @@ export class ProgramacionComponent implements OnInit {
       });
     }
 
-    
+
 
     if (this.reproductor.length > 1 && this.reproductor[this.reproductor.length - 1].duracion === null) {
       this.datos.pop();

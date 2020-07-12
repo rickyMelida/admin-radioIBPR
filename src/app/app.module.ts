@@ -28,6 +28,7 @@ import { ProgramarComponent } from './pages/programar/programar.component';
 // Configuracion para conexion de Firebase
 import { AgregarCancionComponent } from './components/agregar-cancion/agregar-cancion.component';
 
+
 @NgModule({
   declarations: [
     AppComponent,

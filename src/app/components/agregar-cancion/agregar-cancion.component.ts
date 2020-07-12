@@ -1,18 +1,23 @@
 import { Component, OnInit } from '@angular/core';
 
+import { CancionesService } from "../../services/canciones.service";
+import { AgregarCanciones } from "../../interfaces/audio-a-agregar.interface";
+import { HttpErrorResponse } from '@angular/common/http';
+
+
 @Component({
   selector: 'app-agregar-cancion',
   templateUrl: './agregar-cancion.component.html',
-  styleUrls: ['./agregar-cancion.component.css']
+  styleUrls: ['./agregar-cancion.component.css'],
+  providers: [CancionesService]
 })
 export class AgregarCancionComponent implements OnInit {
-  cancion: any;
-  constructor() {
-    this.cancion = {
+  audios: any;
+  constructor( private _addAudios: CancionesService ) {
+    this.audios = {
       nombre: '',
       autor: '',
-      genero: '',
-      duracion: '',
+      tipo: '',
       audio: null
     };
   }
@@ -21,7 +26,16 @@ export class AgregarCancionComponent implements OnInit {
   }
   onSubmit() {
     alert('sale');
-    console.log(this.cancion);
+    // console.log(this.audios);
+
+    this._addAudios.agregaAudio(this.audios).subscribe(
+      res => {
+        console.log(res);
+      },
+      (err: HttpErrorResponse ) => {
+        console.log(err.status);
+      }
+    );
 
   }
 }
