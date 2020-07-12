@@ -2,7 +2,6 @@ import { Component, OnInit } from '@angular/core';
 import { CancionesService } from "../../services/canciones.service";
 import { Cancion } from "../../interfaces/cancion.interface";
 
-import { CancionesService } from "../../services/canciones.service";
 import { AgregarCanciones } from "../../interfaces/audio-a-agregar.interface";
 import { HttpErrorResponse } from '@angular/common/http';
 
@@ -36,6 +35,7 @@ export class AgregarCancionComponent implements OnInit {
     const datos = new FormData();
     if (this.song != null) {
 
+      // tslint:disable-next-line: prefer-for-of
       for (let i = 0; i < this.song.length; i++) {
         datos.append('audio', this.song[i], this.song[i].name);
         datos.append('datos', JSON.stringify(this.cancion));
@@ -46,10 +46,10 @@ export class AgregarCancionComponent implements OnInit {
           if (data.status === 'success') {
             this._cancionService.add(datos).subscribe(
               res => {
-                console.log(res)
+                console.log(res);
               },
               err => {
-                //console.log('Nooooo')
+                // console.log('Nooooo')
               }
             )
           }
