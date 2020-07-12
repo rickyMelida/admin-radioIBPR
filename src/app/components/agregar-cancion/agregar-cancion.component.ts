@@ -1,4 +1,6 @@
 import { Component, OnInit } from '@angular/core';
+import { CancionesService } from "../../services/canciones.service";
+import { Cancion } from "../../interfaces/cancion.interface";
 
 import { CancionesService } from "../../services/canciones.service";
 import { AgregarCanciones } from "../../interfaces/audio-a-agregar.interface";
@@ -12,30 +14,67 @@ import { HttpErrorResponse } from '@angular/common/http';
   providers: [CancionesService]
 })
 export class AgregarCancionComponent implements OnInit {
-  audios: any;
-  constructor( private _addAudios: CancionesService ) {
-    this.audios = {
+  cancion: Cancion;
+  song: Array<File> = null;
+
+  constructor(private _cancionService: CancionesService) {
+    this.cancion = {
       nombre: '',
       autor: '',
-      tipo: '',
-      audio: null
+      tipo: ''
     };
   }
 
   ngOnInit(): void {
   }
-  onSubmit() {
-    alert('sale');
-    // console.log(this.audios);
 
-    this._addAudios.agregaAudio(this.audios).subscribe(
-      res => {
-        console.log(res);
-      },
-      (err: HttpErrorResponse ) => {
-        console.log(err.status);
+  onFileChange(event) {
+    this.song = event.target.files;
+  }
+
+  onSubmit(event) {
+    const datos = new FormData();
+    if (this.song != null) {
+
+      for (let i = 0; i < this.song.length; i++) {
+        datos.append('audio', this.song[i], this.song[i].name);
+        datos.append('datos', JSON.stringify(this.cancion));
       }
-    );
+
+      this._cancionService.compruebaRuta(this.cancion).subscribe(
+        data => {
+          if (data.status === 'success') {
+            this._cancionService.add(datos).subscribe(
+              res => {
+                console.log(res)
+              },
+              err => {
+                //console.log('Nooooo')
+              }
+            )
+          }
+        },
+        err => {
+          console.log('Ha ocurrido un error');
+        }
+      )
+    } else {
+      console.log('Falta el audio');
+    }
+
+    this.reset(event.srcElement);
+
+  }
+
+
+  reset(datos) {
+
+    datos[0].value = '';
+    datos[1].value = '';
+
+    datos[0].placeholder = 'Nombre';
+    datos[1].placeholder = 'Autor';
+    datos[3].value = null;
 
   }
 }

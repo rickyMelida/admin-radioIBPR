@@ -15,6 +15,14 @@ export class CancionesService {
     this.url = GlobalAudios.url;
   }
 
+  compruebaRuta(data): Observable<any> {
+    return this._http.post(this.url + 'folder', data);
+  }
+
+  add(data): Observable<any> {
+    return this._http.post(this.url + 'add',data);
+  }
+
   // Extraemos todas las canciones
   getCancions(): Observable<any> {
     return this._http.get(this.url + 'canciones');
