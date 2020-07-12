@@ -4,6 +4,7 @@ import { Cancion } from "../../interfaces/cancion.interface";
 
 import { AgregarCanciones } from "../../interfaces/audio-a-agregar.interface";
 import { HttpErrorResponse } from '@angular/common/http';
+import Swal from 'sweetalert2';
 
 
 @Component({
@@ -47,19 +48,36 @@ export class AgregarCancionComponent implements OnInit {
             this._cancionService.add(datos).subscribe(
               res => {
                 console.log(res);
+                Swal.fire({
+                  icon: 'success',
+                  title: 'Excelente!',
+                  text: res.mensaje
+                });
               },
               err => {
-                // console.log('Nooooo')
+                Swal.fire({
+                  icon: 'error',
+                  title: 'Hubo un error!',
+                  text: 'Por favor vuelva a intentar de vuelta.'
+                });
               }
-            )
+            );
           }
         },
         err => {
-          console.log('Ha ocurrido un error');
+          Swal.fire({
+            icon: 'error',
+            title: 'Hubo un error!',
+            text: 'Por favor vuelva a intentar de vuelta.'
+          });
         }
-      )
+      );
     } else {
-      console.log('Falta el audio');
+      Swal.fire({
+        icon: 'error',
+        title: 'Faltan Datos!',
+        text: 'Por favor inserte los datos correctamente.'
+      });
     }
 
     this.reset(event.srcElement);

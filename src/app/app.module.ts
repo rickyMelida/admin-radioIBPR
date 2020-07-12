@@ -28,6 +28,8 @@ import { ProgramarComponent } from './pages/programar/programar.component';
 // Configuracion para conexion de Firebase
 import { AgregarCancionComponent } from './components/agregar-cancion/agregar-cancion.component';
 
+// Importamos Sweet Alert
+import { SweetAlert2Module } from "@sweetalert2/ngx-sweetalert2";
 
 @NgModule({
   declarations: [
@@ -51,7 +53,8 @@ import { AgregarCancionComponent } from './components/agregar-cancion/agregar-ca
     FullCalendarModule,
     HttpClientModule,
     DragDropModule,
-    FormsModule
+    FormsModule,
+    SweetAlert2Module
   ],
   providers: [],
   bootstrap: [AppComponent]
