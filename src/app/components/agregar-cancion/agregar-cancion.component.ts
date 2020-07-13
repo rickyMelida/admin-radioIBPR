@@ -34,7 +34,7 @@ export class AgregarCancionComponent implements OnInit {
 
   onSubmit(event) {
     const datos = new FormData();
-    if (this.song != null) {
+    if (this.song != null && this.cancion.nombre != '' && this.cancion.autor != '' && this.cancion.tipo != '') {
 
       // tslint:disable-next-line: prefer-for-of
       for (let i = 0; i < this.song.length; i++) {
@@ -49,7 +49,7 @@ export class AgregarCancionComponent implements OnInit {
               res => {
                 console.log(res);
                 Swal.fire({
-                  icon: 'success',
+                  icon: res.status,
                   title: 'Excelente!',
                   text: res.mensaje
                 });
@@ -72,6 +72,9 @@ export class AgregarCancionComponent implements OnInit {
           });
         }
       );
+
+      this.reset(event.srcElement);
+      
     } else {
       Swal.fire({
         icon: 'error',
@@ -79,9 +82,6 @@ export class AgregarCancionComponent implements OnInit {
         text: 'Por favor inserte los datos correctamente.'
       });
     }
-
-    this.reset(event.srcElement);
-
   }
 
 

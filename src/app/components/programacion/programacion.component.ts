@@ -83,6 +83,7 @@ export class ProgramacionComponent implements OnInit {
   }
 
   drop(event: CdkDragDrop<string[]>) {
+    //console.log(`Inicialmente hay ${this.reproductor.length}`)
 
     if (event.previousContainer === event.container) {
       moveItemInArray(
@@ -98,34 +99,89 @@ export class ProgramacionComponent implements OnInit {
         event.previousIndex,
         event.currentIndex
       );
-      // Eliminamos el cuadro e blanco una vez que tenga datos
+
+      // Eliminamos el cuadro en blanco una vez que se tiran datos por encima de el
       if (this.datos.length > 1 && this.datos[this.datos.length - 1].duracion === null) {
         this.datos.pop();
       }
 
-      this.reproductor.push({
+      // Eliminamos el cuadro en blanco una vez que se tiran datos por debajo de el
+      if (this.datos.length > 1 && this.datos[this.datos.length - 2].duracion === null && event.currentIndex === 1) {
+        this.datos.shift();
+      }
+
+      /*this.reproductor.push({
         fecha: this.fecha,
         pos: event.currentIndex + 1,
-        nombre: this.datos[this.datos.length-1].nombre,
-        autor: this.datos[this.datos.length-1].autor,
-        tipo: this.datos[this.datos.length-1].tipo,
-        duracion: this.datos[this.datos.length-1].duracion,
+        nombre: this.datos[this.datos.length - 1].nombre,
+        autor: this.datos[this.datos.length - 1].autor,
+        tipo: this.datos[this.datos.length - 1].tipo,
+        duracion: this.datos[this.datos.length - 1].duracion,
         horaInicio: 0,
-        horaFin: this.datos[this.datos.length-1].duracion
-      });
+        horaFin: this.datos[this.datos.length - 1].duracion
+      });*/
+
     }
-
-
-
-    if (this.reproductor.length > 1 && this.reproductor[this.reproductor.length - 1].duracion === null) {
-      this.datos.pop();
-    }
-
-    //console.log(event.currentIndex + 1);
   }
 
 
-  tiempoReproduccion() {
+  horaInicio(posicion: number, duracionAnterior: number) {
+    let salida: number;
+    salida = duracionAnterior + 1;
+
+    if (posicion === 1) {
+      salida = 0;
+    }
+
+    return salida;
+  }
+
+  horaFin(posicion: number, duracion: number, horaInicio: number) {
+    let salida: number;
+
+    salida = horaInicio + duracion;
+
+    if (posicion === 1) {
+      salida = duracion;
+    }
+
+    return salida;
+  }
+
+  guardar() {
+    let indice: number;
+    let duracionAnterior: number;
+    let durAudio: number;
+
+    for (const [index, dato] of this.datos.entries()) {
+      indice = index + 1;
+      durAudio = Math.round(dato.duracion);
+
+      if (index === 0) {
+        duracionAnterior = 0;
+      } else {
+        duracionAnterior = Math.round(this.datos[index - 1].duracion);
+
+      }
+
+      this.reproductor.push({
+        fecha: this.fecha,
+        pos: indice,
+        nombre: dato.nombre,
+        autor: dato.nombre,
+        tipo: dato.tipo,
+        duracion: durAudio,
+        horaInicio: this.horaInicio(indice, duracionAnterior),
+        horaFin: this.horaFin(indice, durAudio, this.horaInicio(indice, duracionAnterior))
+      });
+    }
+
+    // Eliminamos el primer elemento que esta vacio
+    this.reproductor.shift();
+
+
+    // console.log(this.horaInicio(1, 200));
+    console.log(this.reproductor);
 
   }
 
