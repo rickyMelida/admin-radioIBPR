@@ -30,6 +30,7 @@ import { AgregarCancionComponent } from './components/agregar-cancion/agregar-ca
 
 // Importamos Sweet Alert
 import { SweetAlert2Module } from "@sweetalert2/ngx-sweetalert2";
+import { ListaAudiosComponent } from './components/lista-audios/lista-audios.component';
 
 @NgModule({
   declarations: [
@@ -45,7 +46,8 @@ import { SweetAlert2Module } from "@sweetalert2/ngx-sweetalert2";
     AudiosComponent,
     ProgramacionComponent,
     ProgramarComponent,
-    AgregarCancionComponent
+    AgregarCancionComponent,
+    ListaAudiosComponent
   ],
   imports: [
     BrowserModule,
