@@ -11,7 +11,7 @@ export class CancionesService {
 
   public url: string;
 
-  constructor( private _http: HttpClient ) {
+  constructor(private _http: HttpClient) {
     this.url = GlobalAudios.url;
   }
 
@@ -20,7 +20,7 @@ export class CancionesService {
   }
 
   add(data): Observable<any> {
-    return this._http.post(this.url + 'add',data);
+    return this._http.post(this.url + 'add', data);
   }
 
   // Extraemos todas las canciones
@@ -32,6 +32,11 @@ export class CancionesService {
     const datos = JSON.stringify(data);
     const header = new HttpHeaders().set('Content-Type', 'application/json');
     return this._http.post(this.url + 'add', datos, { headers: header });
+  }
+
+  eliminarAudio(id): Observable<any> {
+    const header = new HttpHeaders().set('Content-Type', 'application/json');
+    return this._http.delete(this.url + 'eliminar/' + id);
   }
 
 
