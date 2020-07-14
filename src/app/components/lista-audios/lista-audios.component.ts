@@ -39,7 +39,7 @@ export class ListaAudiosComponent implements OnInit {
   }
 
   eliminar(id) {
-    //console.log(`Se va a eliminar ${id}`);
+    // console.log(`Se va a eliminar ${id}`);
     Swal.fire({
       title: 'Eliminar audio',
       text: "¿Esta seguro de que quiere eliminar este audio?",
@@ -52,7 +52,14 @@ export class ListaAudiosComponent implements OnInit {
       if (result.value) {
         this._audiosService.eliminarAudio(id).subscribe(
           data => {
-            console.log(data);
+            this._audiosService.getCancions().subscribe(
+              songs => {
+                this.audios = songs.data;
+              },
+              err => {
+                console.log('Ha ocurrido un error');
+              }
+            );
           },
           err => {
             console.log('No se pudo eliminar');
@@ -62,7 +69,7 @@ export class ListaAudiosComponent implements OnInit {
           'Eliminado!',
           'El audio seleccionado se ha eliminado correctamente.',
           'success'
-        )
+        );
       }
     });
   }
