@@ -37,9 +37,9 @@
             <td>{{cancion.nombre}}</td>
             <td>{{cancion.autor}}</td>
             <td>{{cancion.tipo}}</td>
-            <td>{{cancion.duracion}}</td>
-            <td><i class=" iconos fa fa-trash"></i></td>
-            <td><i class=" iconos fa fa-edit"></i></td>
+            <td>{{duracionMinutos(cancion.duracion)}}</td>
+            <td><i class=" iconos fa fa-trash" (click)="eliminar(cancion._id)"></i></td>
+            <td><i class=" iconos fa fa-edit" (click)="modificar(cancion.id)"></i></td>
             <td><i class=" iconos fa fa-play-circle"></i></td>
           </tr>
         </tbody>

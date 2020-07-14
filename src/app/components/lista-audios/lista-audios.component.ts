@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { CancionesService } from '../../services/canciones.service';
 import { Canciones } from '../../interfaces/canciones.interface';
+import Swal from 'sweetalert2';
 
 @Component({
   selector: 'app-lista-audios',
@@ -10,33 +11,18 @@ import { Canciones } from '../../interfaces/canciones.interface';
 })
 export class ListaAudiosComponent implements OnInit {
   audios: Array<Canciones>;
-  duracionReal: Array<any>;
 
-  constructor(private _audiosService: CancionesService) {
-    console.log(this.audios);
-
-  }
+  constructor( private _audiosService: CancionesService ) { }
 
   ngOnInit(): void {
     this._audiosService.getCancions().subscribe(
       songs => {
         this.audios = songs.data;
-        // console.log(this.audios);
-        this.duracion(582);
-        console.log(this.duracionMinutos(582));
       },
       err => {
         console.log('Ha ocurrido un error');
       }
     );
-
-
-  }
-
-  duracion(duracion: number) {
-    for (const [index, dato] of this.audios.entries()) {
-      this.duracionReal[index] = dato;
-    }
   }
 
   duracionMinutos(duracion: number): string {
@@ -51,4 +37,38 @@ export class ListaAudiosComponent implements OnInit {
 
     return salida;
   }
+
+  eliminar(id) {
+    //console.log(`Se va a eliminar ${id}`);
+    Swal.fire({
+      title: 'Eliminar audio',
+      text: "¿Esta seguro de que quiere eliminar este audio?",
+      icon: 'warning',
+      showCancelButton: true,
+      confirmButtonColor: '#3085d6',
+      cancelButtonColor: '#d33',
+      confirmButtonText: 'Si, eliminalo!'
+    }).then((result) => {
+      if (result.value) {
+        this._audiosService.eliminarAudio(id).subscribe(
+          data => {
+            console.log(data);
+          },
+          err => {
+            console.log('No se pudo eliminar');
+          }
+        );
+        Swal.fire(
+          'Eliminado!',
+          'El audio seleccionado se ha eliminado correctamente.',
+          'success'
+        )
+      }
+    });
+  }
+
+  modificar(id) {
+    console.log('Se va a modificar')
+  }
+
 }
