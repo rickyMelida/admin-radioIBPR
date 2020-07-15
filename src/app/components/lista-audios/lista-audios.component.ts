@@ -1,7 +1,10 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, Input } from '@angular/core';
 import { CancionesService } from '../../services/canciones.service';
 import { Canciones } from '../../interfaces/canciones.interface';
 import Swal from 'sweetalert2';
+import { NgbActiveModal, NgbModal } from '@ng-bootstrap/ng-bootstrap';
+import { ModificarComponent } from "../modificar/modificar.component";
+
 
 @Component({
   selector: 'app-lista-audios',
@@ -12,7 +15,7 @@ import Swal from 'sweetalert2';
 export class ListaAudiosComponent implements OnInit {
   audios: Array<Canciones>;
 
-  constructor( private _audiosService: CancionesService ) { }
+  constructor(private _audiosService: CancionesService, private modalService: NgbModal) { }
 
   ngOnInit(): void {
     this._audiosService.getCancions().subscribe(
@@ -75,7 +78,8 @@ export class ListaAudiosComponent implements OnInit {
   }
 
   modificar(id) {
-    console.log('Se va a modificar')
+    const modalRef = this.modalService.open(ModificarComponent);
+    
   }
 
 }

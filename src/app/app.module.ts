@@ -1,6 +1,9 @@
 import { BrowserModule } from '@angular/platform-browser';
 import { NgModule } from '@angular/core';
 
+//Bootstrap Angular
+import { NgbPaginationModule, NgbAlertModule } from "@ng-bootstrap/ng-bootstrap";
+
 // tslint:disable-next-line:quotemark
 import { FullCalendarModule } from "@fullcalendar/angular";
 import { FormsModule } from "@angular/forms";
@@ -31,6 +34,8 @@ import { AgregarCancionComponent } from './components/agregar-cancion/agregar-ca
 // Importamos Sweet Alert
 import { SweetAlert2Module } from "@sweetalert2/ngx-sweetalert2";
 import { ListaAudiosComponent } from './components/lista-audios/lista-audios.component';
+import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
+import { ModificarComponent } from './components/modificar/modificar.component';
 
 @NgModule({
   declarations: [
@@ -47,7 +52,8 @@ import { ListaAudiosComponent } from './components/lista-audios/lista-audios.com
     ProgramacionComponent,
     ProgramarComponent,
     AgregarCancionComponent,
-    ListaAudiosComponent
+    ListaAudiosComponent,
+    ModificarComponent
   ],
   imports: [
     BrowserModule,
@@ -56,7 +62,10 @@ import { ListaAudiosComponent } from './components/lista-audios/lista-audios.com
     HttpClientModule,
     DragDropModule,
     FormsModule,
-    SweetAlert2Module
+    SweetAlert2Module,
+    NgbModule,
+    NgbPaginationModule,
+    NgbAlertModule
   ],
   providers: [],
   bootstrap: [AppComponent]
