@@ -1,0 +1,61 @@
+<div class="modal-header">
+    <h4 class="modal-title" id="modal-title">Modificar Canción</h4>
+    <button type="button" class="close" aria-describedby="modal-title" >
+      <!-- (click)="modal.dismiss('Cross click')" -->
+        <span aria-hidden="true">&times;</span>
+    </button>
+</div>
+<div class="modal-body">
+    <form>
+        <div class="form-group">
+            <label for="nombre" class="text-light">Nombre</label>
+            <input type="text" class="form-control" name="nombre" placeholder="Nombre del audio">
+        </div>
+        <div class="form-group">
+            <label for="autor" class="text-light">Autor</label>
+            <input type="text" class="form-control" name="autor" placeholder="Autor">
+        </div>
+        <div class="form-group">
+            <label for="genero" class="text-light">Tipo</label>
+            <select class="form-control" name="tipo" >
+              <option>Lento</option>
+              <option>Movido</option>
+              <option>Predica</option>
+              <option>Polka</option>
+            </select>
+          </div>
+          <div class="form-group">
+            <label for="audio" class="text-light">Agregue el audio</label>
+            <input type="file" class="form-control-file text-light" >
+          </div>
+    </form>
+</div>
+<div class="modal-footer">
+    <button type="button" class="btn btn-outline-secondary" (click)="cancel()">Cancel</button>
+    <button type="button" class="btn btn-danger" (click)="modal()">Actualizar</button>
+</div>
+
+<!--form (ngSubmit)="modifica($event)" #modificarForm="ngForm">
+    <div class="form-group">
+      <label for="nombre" class="text-light">Nombre</label>
+      <input type="text" class="form-control" name="nombre" placeholder="Nombre del audio"  #nombre="ngModel" [(ngModel)]="cancion.nombre" >
+    </div>
+    <div class="form-group">
+      <label for="autor" class="text-light">Autor</label>
+      <input type="text" class="form-control" name="autor" placeholder="Autor" [(ngModel)]="cancion.autor" #autor="ngModel">
+    </div>
+    <div class="form-group">
+      <label for="genero" class="text-light">Tipo</label>
+      <select class="form-control" name="tipo" [(ngModel)]="cancion.tipo" #genero="ngModel">
+        <option>Lento</option>
+        <option>Movido</option>
+        <option>Predica</option>
+        <option>Polka</option>
+      </select>
+    </div>
+    <div class="form-group">
+      <label for="audio" class="text-light">Agregue el audio</label>
+      <input type="file" class="form-control-file text-light" (change)="nuevoAudio($event)">
+    </div>
+    <button type="submit" class="btn btn-primary btn-block">Guardar</button>
+  </form-->

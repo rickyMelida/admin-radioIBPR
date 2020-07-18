@@ -1,7 +1,12 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, Input } from '@angular/core';
 import { CancionesService } from '../../services/canciones.service';
 import { Canciones } from '../../interfaces/canciones.interface';
 import Swal from 'sweetalert2';
+import { NgbActiveModal, NgbModal } from '@ng-bootstrap/ng-bootstrap';
+import { ModificarComponent } from "../modificar/modificar.component";
+import { Cancion } from 'src/app/interfaces/cancion.interface';
+import { AudioModificado } from 'src/app/interfaces/modificaciones.interface';
+
 
 @Component({
   selector: 'app-lista-audios',
@@ -11,8 +16,19 @@ import Swal from 'sweetalert2';
 })
 export class ListaAudiosComponent implements OnInit {
   audios: Array<Canciones>;
+  cancion: Cancion;
+  song: Array<File> = null;
+  datos: AudioModificado;
+  modalRef: any;
 
-  constructor( private _audiosService: CancionesService ) { }
+  constructor(private _audiosService: CancionesService, private modalService: NgbModal) {
+    this.cancion = {
+      nombre: '',
+      autor: '',
+      tipo: '',
+      id: ''
+    }
+  }
 
   ngOnInit(): void {
     this._audiosService.getCancions().subscribe(
@@ -74,8 +90,45 @@ export class ListaAudiosComponent implements OnInit {
     });
   }
 
-  modificar(id) {
-    console.log('Se va a modificar')
+  modificar(data, content) {
+    this.modalRef = this.modalService.open(content);
+    //console.log(data);
+    this.cancion.nombre = data.nombre;
+    this.cancion.autor = data.autor;
+    this.cancion.tipo = data.tipo;
+    this.cancion.id = data._id;
+
+  }
+
+  guardar() {
+    this._audiosService.modificarAudio(this.cancion.id, this.cancion).subscribe(
+      res => {
+        Swal.fire({
+          icon: res.status,
+          title: 'Excelente!',
+          text: res.mensaje
+        });
+        this._audiosService.getCancions().subscribe(
+          songs => {
+            this.audios = songs.data;
+          },
+          err => {
+            console.log('Ha ocurrido un error');
+          }
+        );
+      },
+      err => {
+        console.log('Error al Actualizar')
+      }
+    );
+    this.modalRef.close();
+
+
+  }
+
+
+  close() {
+    this.modalRef.close();
   }
 
 }

@@ -34,6 +34,12 @@ export class CancionesService {
     return this._http.post(this.url + 'add', datos, { headers: header });
   }
 
+  modificarAudio(id, data): Observable<any> {
+    const header = new HttpHeaders().set('Content-Type', 'application/json');
+    const datos = JSON.stringify(data);
+    return this._http.put(this.url + 'modificar/' + id, data);
+  }
+
   eliminarAudio(id): Observable<any> {
     const header = new HttpHeaders().set('Content-Type', 'application/json');
     return this._http.delete(this.url + 'eliminar/' + id);
