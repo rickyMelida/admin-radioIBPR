@@ -1,6 +1,5 @@
 import { Injectable } from '@angular/core';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
-import { Canciones } from '../interfaces/canciones.interface';
 import { Observable } from 'rxjs';
 import { GlobalAudios } from './global.audios';
 

@@ -52,6 +52,10 @@ export class AgregarCancionComponent implements OnInit {
                   icon: res.status,
                   title: 'Excelente!',
                   text: res.mensaje
+                }).then((res)=> {
+                  if(res.value) {
+                    this.reset(event.srcElement);
+                  }
                 });
               },
               err => {
@@ -73,7 +77,6 @@ export class AgregarCancionComponent implements OnInit {
         }
       );
 
-      this.reset(event.srcElement);
       
     } else {
       Swal.fire({

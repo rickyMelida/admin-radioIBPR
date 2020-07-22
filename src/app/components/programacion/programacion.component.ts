@@ -1,7 +1,7 @@
 import { Component, OnInit, ViewChild } from '@angular/core';
 import { FullCalendarComponent } from '@fullcalendar/angular';
 import { EventInput, View } from '@fullcalendar/core';
-import { ActivatedRoute, Params } from '@angular/router';
+import { ActivatedRoute, Router } from '@angular/router';
 // import dayGridPlugin from "@fullcalendar/daygrid";
 // import timeGrigPlugin from "@fullcalendar/timegrid";
 import interactionPlugin from '@fullcalendar/interaction';
@@ -13,12 +13,19 @@ import { CdkDragDrop, moveItemInArray, transferArrayItem, copyArrayItem } from '
 import { CancionesService } from "../../services/canciones.service";
 import { Canciones } from "../../interfaces/canciones.interface";
 import { Reproductor } from "../../interfaces/reproductor.interface";
+import { ReproductorService } from 'src/app/services/reproductor.service';
+import Swal from 'sweetalert2';
+import { isError } from 'util';
+
 
 @Component({
   selector: 'app-programacion',
   templateUrl: './programacion.component.html',
   styleUrls: ['./programacion.component.css'],
-  providers: [CancionesService]
+  providers: [
+    CancionesService,
+    ReproductorService
+  ]
 })
 export class ProgramacionComponent implements OnInit {
 
@@ -27,18 +34,7 @@ export class ProgramacionComponent implements OnInit {
   calendarPlugins = [resurceTimelineDay, interactionPlugin];
   listaCanciones: EventInput[] = [];
 
-  /*audios = [
-    'Santiago Benavides - Aprovecha',
-    'Funky - Sal y Luz',
-    'Hillsong - Dios Eterno',
-    'Alex Campos - El Sonido del Silencio',
-    'Redimi2 - Trapstorno',
-    'Juan Luis Guerra - Las avispas',
-    'Santiago Benavides - Que facil es',
-    'Rescate - Soy Jose'
-  ];*/
-
-  fecha;
+  public fecha: string;
 
   // Iniciamos todas las canciones que se van a guardar en la seccion de reproduccion en null o vacio
   datos: Array<Canciones> = [{
@@ -51,20 +47,31 @@ export class ProgramacionComponent implements OnInit {
   }];
 
   // Iniciamos todas las canciones que se van a guardar en la seccion de reproduccion en null o vacio
-  reproductor: Array<Reproductor> = [{
+  reproductor: Reproductor = {
     fecha: '',
-    pos: null,
-    nombre: '',
-    autor: '',
-    tipo: '',
-    duracion: null,
-    horaInicio: null,
-    horaFin: null
-  }];
+    audios:
+      [
+        {
+          pos: null,
+          nombre: '',
+          autor: '',
+          tipo: '',
+          duracion: null,
+          horaInicio: null,
+          horaFin: null
+        }
+      ]
+  };
 
   audiosTodos: Array<Canciones>;
 
-  constructor(private rutaActual: ActivatedRoute, private _audiosSevice: CancionesService) {
+
+  constructor(
+    private rutaActual: ActivatedRoute,
+    private router: Router,
+    private _audiosSevice: CancionesService,
+    private _reproductorService: ReproductorService
+  ) {
 
     this.fecha = this.rutaActual.snapshot.params.fecha;
 
@@ -83,7 +90,6 @@ export class ProgramacionComponent implements OnInit {
   }
 
   drop(event: CdkDragDrop<string[]>) {
-    //console.log(`Inicialmente hay ${this.reproductor.length}`)
 
     if (event.previousContainer === event.container) {
       moveItemInArray(
@@ -109,18 +115,6 @@ export class ProgramacionComponent implements OnInit {
       if (this.datos.length > 1 && this.datos[this.datos.length - 2].duracion === null && event.currentIndex === 1) {
         this.datos.shift();
       }
-
-      /*this.reproductor.push({
-        fecha: this.fecha,
-        pos: event.currentIndex + 1,
-        nombre: this.datos[this.datos.length - 1].nombre,
-        autor: this.datos[this.datos.length - 1].autor,
-        tipo: this.datos[this.datos.length - 1].tipo,
-        duracion: this.datos[this.datos.length - 1].duracion,
-        horaInicio: 0,
-        horaFin: this.datos[this.datos.length - 1].duracion
-      });*/
-
     }
   }
 
@@ -164,24 +158,48 @@ export class ProgramacionComponent implements OnInit {
 
       }
 
-      this.reproductor.push({
-        fecha: this.fecha,
+      this.reproductor.fecha = this.fecha;
+
+      this.reproductor.audios.push({
         pos: indice,
         nombre: dato.nombre,
-        autor: dato.nombre,
+        autor: dato.autor,
         tipo: dato.tipo,
         duracion: durAudio,
         horaInicio: this.horaInicio(indice, duracionAnterior),
         horaFin: this.horaFin(indice, durAudio, this.horaInicio(indice, duracionAnterior))
       });
+
     }
 
     // Eliminamos el primer elemento que esta vacio
-    this.reproductor.shift();
+    this.reproductor.audios.shift();
 
 
     // console.log(this.horaInicio(1, 200));
     console.log(this.reproductor);
+
+    this._reproductorService.add(this.reproductor).subscribe(
+      res => {
+        Swal.fire({
+          icon: res.status,
+          title: 'Excelente!',
+          text: res.mensaje
+        }).then((res) => {
+          if (res.value) {
+            this.router.navigate(['/calendar']);
+          }
+        });
+      },
+      err => {
+        Swal.fire({
+          icon: 'error',
+          title: 'Error!!',
+          text: 'Se produjo un pequeño error al intentar guardar la lista de reproduccion, favor vuelva a intentar'
+        })
+
+      }
+    );
 
   }
 
