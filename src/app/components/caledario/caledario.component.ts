@@ -8,12 +8,17 @@ import * as moment from 'moment';
 
 import { CancionesService } from '../../services/canciones.service';
 import { Canciones } from '../../interfaces/canciones.interface';
+import { ReproductorService } from "../../services/reproductor.service";
+import { Reproductor } from 'src/app/interfaces/reproductor.interface';
 
 @Component({
   selector: 'app-caledario',
   templateUrl: './caledario.component.html',
   styleUrls: ['./caledario.component.css'],
-  providers: [CancionesService]
+  providers: [
+    CancionesService,
+    ReproductorService
+  ]
 })
 export class CaledarioComponent implements OnInit {
   @ViewChild('calendar') calendarComponent: FullCalendarComponent;
@@ -25,21 +30,24 @@ export class CaledarioComponent implements OnInit {
     { /*title: 'Nuevo Evento', start: new Date()*/ }
 ];
 
-  public canciones: Array<Canciones>;
+  public playList: Array<any>;
 
-  constructor( private _audios: CancionesService ) { }
+  constructor( private _audios: ReproductorService ) { }
 
   ngOnInit(): void {
     moment.locale('es');
     this.fechaSelec = moment().format('DD-MM-YYYY');
-    this._audios.getCancions().subscribe(
-      res => {
-        console.log(res);
+    this._audios.getPlayList(this.fechaSelec).subscribe(
+      data => {
+        this.playList = data.canciones[0].audios;
+        console.log(this.playList);
       },
       err => {
-        console.log(err);
+
       }
-      );
+    )
+
+
   }
 
   toggleVisible() {
