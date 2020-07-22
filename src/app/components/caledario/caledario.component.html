@@ -27,8 +27,8 @@
           </thead>
           <tbody>
             <span class="text-light text-center d-block mx-auto my-2">{{fechaSelec}}</span>
-            <tr *ngFor="let cancion of canciones; let i=index;">
-              <td class="text-light">{{cancion.artista}} - {{cancion.nombre}}</td>
+            <tr *ngFor="let audio of playList; let i=index;">
+              <td class="text-light">{{audio.autor}} - {{audio.nombre}}</td>
             </tr>
             <tr>
             <!--  -->
