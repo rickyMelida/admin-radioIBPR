@@ -10,28 +10,40 @@
 
       <div cdkDropList [cdkDropListData]="audiosTodos" (cdkDropListDropped)="drop($event)"
         [cdkDropListEnterPredicate]="false" class="ml-3">
-        <div class="items text-light" *ngFor="let audios of audiosTodos; index as i" cdkDrag>{{i+1}}-{{audios.autor}} - {{audios.nombre}}</div>
+        <div class="items text-light" *ngFor="let audios of audiosTodos; index as i" cdkDrag>{{i+1}}-{{audios.autor}} -
+          {{audios.nombre}}</div>
       </div>
     </div>
 
     <div class="example-container col-md-6">
-      <h2 class="text-light">Reproductor</h2>
-      <h5 class="text-light text-center">{{fecha}}</h5>
-
-      <div cdkDropList [cdkDropListData]="datos" (cdkDropListDropped)="drop($event)" class="ml-3">
-        <div
-          class="items text-light"
-          *ngFor="let reproduce of datos;index as i"
-          cdkDrag
-        >
-          {{i+1}}-{{reproduce.autor}} - {{reproduce.nombre}}
-
+      <div class="row">
+        <div class="col-md-12">
+          <h2 class="text-light text-center">Reproductor</h2>
+          <h5 class="text-light text-center">{{fecha}}</h5>
         </div>
       </div>
+      <div class="row">
+        <div class="col-md-9">
+          <div cdkDropList [cdkDropListData]="datos" (cdkDropListDropped)="drop($event)" class="ml-3">
+            <div class="items text-light" *ngFor="let reproduce of datos;index as i" cdkDrag>
+              {{i+1}}-{{reproduce.autor}} - {{reproduce.nombre}}
+            </div>
+          </div>
+        </div>
+        <div class="col-md-3">
+          <div class="alert alert-dark mt-3" role="alert" *ngFor="let reproduce of datos;index as i">
+            <span class="alert-link d-flex justify-content-center">{{duracionMinutos(duracionTotal)}}</span>
+          </div>
+        </div>
+      </div>
+
+
+
       <div class="px-3 m-5">
         <button type="button" class="btn btn-primary btn-lg m-3" (click)="guardar()">Guardar</button>
         <button type="button" class="btn btn-secondary btn-lg ml-5">Cancelar</button>
       </div>
+
     </div>
   </div>
 </div>

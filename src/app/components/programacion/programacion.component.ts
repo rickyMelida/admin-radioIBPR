@@ -15,7 +15,6 @@ import { Canciones } from "../../interfaces/canciones.interface";
 import { Reproductor } from "../../interfaces/reproductor.interface";
 import { ReproductorService } from 'src/app/services/reproductor.service';
 import Swal from 'sweetalert2';
-import { isError } from 'util';
 
 
 @Component({
@@ -35,6 +34,7 @@ export class ProgramacionComponent implements OnInit {
   listaCanciones: EventInput[] = [];
 
   public fecha: string;
+  duracionTotal: number = 0;
 
   // Iniciamos todas las canciones que se van a guardar en la seccion de reproduccion en null o vacio
   datos: Array<Canciones> = [{
@@ -115,7 +115,14 @@ export class ProgramacionComponent implements OnInit {
       if (this.datos.length > 1 && this.datos[this.datos.length - 2].duracion === null && event.currentIndex === 1) {
         this.datos.shift();
       }
+      if (this.datos.length > 1) {
+        let posRelativo = event.currentIndex;
+        this.duracionTotal = this.duracionTotal + Number(this.datos[posRelativo].duracion);
+      } else {
+        this.duracionTotal = Number(this.datos[this.datos.length - 1].duracion);
+      }
     }
+    console.log(this.datos[0].duracion);
   }
 
 
@@ -137,6 +144,28 @@ export class ProgramacionComponent implements OnInit {
 
     if (posicion === 1) {
       salida = duracion;
+    }
+
+    return salida;
+  }
+
+  duracionMinutos(duracion: number): string {
+    let salida: string;
+    let horas: number = 0;
+    let min: number;
+    let seg: number;
+
+    min = Math.floor(duracion / 60);
+    seg = duracion % 60;
+
+    salida = `0${horas}:${min}:${seg}`;
+
+    if (min > 59 ) {
+      horas = horas + 1;
+      min = 0;
+      salida = `${horas}:${min}0:${seg}`;
+      console.log('Aqui entro!')
+
     }
 
     return salida;
