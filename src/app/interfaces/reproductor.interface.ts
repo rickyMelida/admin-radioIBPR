@@ -1,5 +1,6 @@
 export interface Reproductor {
     fecha: String,
+    duracionTotal: Number,
     audios:
     [
         {
