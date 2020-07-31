@@ -20,4 +20,8 @@ export class ReproductorService {
   add(data): Observable<any> {
     return this._http.post(this.url + 'add', data);
   }
+
+  getFechas(): Observable<any> {
+    return this._http.get(this.url + 'getfecha');
+  }
 }

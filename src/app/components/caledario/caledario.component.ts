@@ -35,17 +35,25 @@ export class CaledarioComponent implements OnInit {
   constructor( private _audios: ReproductorService ) { }
 
   ngOnInit(): void {
-    moment.locale('es');
-    this.fechaSelec = moment().format('DD-MM-YYYY');
-    this._audios.getPlayList(this.fechaSelec).subscribe(
-      data => {
-        this.playList = data.canciones[0].audios;
-        console.log(this.playList);
+    //moment.locale('es');
+    //this.fechaSelec = moment().format('DD-MM-YYYY');
+
+    this._audios.getFechas().subscribe(
+      res => {
+        console.log(res.fechas)
       },
       err => {
 
       }
     )
+    /*this._audios.getPlayList(this.fechaSelec).subscribe(
+      data => {
+        this.playList = data.canciones[0].audios;
+      },
+      err => {
+
+      }
+    )*/
 
 
   }
@@ -63,22 +71,57 @@ export class CaledarioComponent implements OnInit {
     calendarApi.gotoDate('2000-01-01'); // call a method on the Calendar object
   }
 
+  /*
+    colores para calendario:
+      #00ff00 : verde
+      #ffff00 : amarillo
+      #ff0000 : rojo
+
+  */
   handleDateClick(arg) {
     if (confirm('Desea agregar un nuevo evento ' + arg.dateStr + ' ?')) {
       const fecha = moment(arg.dateStr);
+      this.fechaSelec = fecha.format('YYYY-MM-DD');
+
       this.calendarEvents = this.calendarEvents.concat({
-        title: 'New Event',
-        start: arg.date,
+        title: 'Cargado!',
+        start: this.fechaSelec,
         allDay: arg.allDay,
-        backgroundColor: '#024A86'
+        backgroundColor: '#00ff00',
+        
       });
-      this.fechaSelec = fecha.format('DD-MM-YYYY');
-      // this.canciones = this._cancion.canciones;
-      // console.log(this._cancion.reproductor['d120520'][0]['artista']);
-      console.log(`d${this.fechaSelec}`);
-      //console.log(this._cancion.reproductor[`d${this.fechaSelec}`]);
+
+      this._audios.getPlayList(this.fechaSelec).subscribe(
+        data => {
+          this.playList = data.canciones[0].audios;
+          //console.log(this.playList);
+        },
+        err => {
+  
+        }
+      )
+      console.log(arg.date);
+      console.log(this.fechaSelec)
 
     }
   }
 
+  /*
+
+  obtenerFechas(fecha:Array<any>) {
+    fechaSelect = moment(fecha);
+      this.fechaSelec = fecha.format('YYYY-MM-DD');
+    for(let i=0; i< fecha.length;i++) {
+
+      this.calendarEvents = this.calendarEvents.concat({
+        title: 'Cargado!',
+        start: fech,
+        allDay: arg.allDay,
+        backgroundColor: '#00ff00',
+        
+      });
+    }
+  }
+
+  */
 }

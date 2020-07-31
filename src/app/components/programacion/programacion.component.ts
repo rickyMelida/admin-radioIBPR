@@ -15,7 +15,6 @@ import { Canciones } from "../../interfaces/canciones.interface";
 import { Reproductor } from "../../interfaces/reproductor.interface";
 import { ReproductorService } from 'src/app/services/reproductor.service';
 import Swal from 'sweetalert2';
-import { isError } from 'util';
 
 
 @Component({
@@ -35,6 +34,8 @@ export class ProgramacionComponent implements OnInit {
   listaCanciones: EventInput[] = [];
 
   public fecha: string;
+  duracionTotal: number = 0;
+  tiempoRep: number;
 
   // Iniciamos todas las canciones que se van a guardar en la seccion de reproduccion en null o vacio
   datos: Array<Canciones> = [{
@@ -49,6 +50,7 @@ export class ProgramacionComponent implements OnInit {
   // Iniciamos todas las canciones que se van a guardar en la seccion de reproduccion en null o vacio
   reproductor: Reproductor = {
     fecha: '',
+    duracionTotal: null,
     audios:
       [
         {
@@ -115,9 +117,16 @@ export class ProgramacionComponent implements OnInit {
       if (this.datos.length > 1 && this.datos[this.datos.length - 2].duracion === null && event.currentIndex === 1) {
         this.datos.shift();
       }
-    }
-  }
 
+      if (this.datos.length > 1) {
+        let posRelativo = event.currentIndex;
+        this.duracionTotal = this.duracionTotal + Number(this.datos[posRelativo].duracion);
+      } else {
+        this.duracionTotal = Number(this.datos[this.datos.length - 1].duracion);
+      }
+    }
+    console.log(this.recogerDatosReproductor());
+  }
 
   horaInicio(posicion: number, duracionAnterior: number) {
     let salida: number;
@@ -142,7 +151,41 @@ export class ProgramacionComponent implements OnInit {
     return salida;
   }
 
-  guardar() {
+  duracionMinutos(duracion: number): string {
+    let salida: string;
+    let horas: number = 0;
+    let min: number;
+    let seg: number;
+
+    min = Math.floor(duracion / 60);
+    seg = duracion % 60;
+
+    salida = `0${horas}:0${min}:0${seg}`;
+
+    if (seg >= 10) {
+      salida = `0${horas}:0${min}:${seg}`;
+    }
+
+    if (min >= 10) {
+      salida = `0${horas}:${min}:0${seg}`;
+    }
+
+    if (horas >= 10) {
+      salida = `${horas}:0${min}:0${seg}`;
+
+    }
+
+    if (min > 59) {
+      horas = horas + 1;
+      min = 0;
+      salida = `${horas}:${min}0:${seg}`;
+
+    }
+    //console.log(`El minuto dura ${min} y segundo dura ${seg}`);
+    return salida;
+  }
+
+  recogerDatosReproductor(): Reproductor {
     let indice: number;
     let duracionAnterior: number;
     let durAudio: number;
@@ -159,6 +202,7 @@ export class ProgramacionComponent implements OnInit {
       }
 
       this.reproductor.fecha = this.fecha;
+      this.reproductor.duracionTotal = this.duracionTotal;
 
       this.reproductor.audios.push({
         pos: indice,
@@ -175,6 +219,13 @@ export class ProgramacionComponent implements OnInit {
     // Eliminamos el primer elemento que esta vacio
     this.reproductor.audios.shift();
 
+    return this.reproductor;
+  }
+
+  guardar() {
+
+
+    this.recogerDatosReproductor();
 
     // console.log(this.horaInicio(1, 200));
     console.log(this.reproductor);
