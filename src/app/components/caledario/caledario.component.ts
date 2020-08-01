@@ -35,27 +35,25 @@ export class CaledarioComponent implements OnInit {
   constructor( private _audios: ReproductorService ) { }
 
   ngOnInit(): void {
-    //moment.locale('es');
-    //this.fechaSelec = moment().format('DD-MM-YYYY');
+    // moment.locale('es');
+    this.fechaSelec = moment().format('DD-MM-YYYY');
 
     this._audios.getFechas().subscribe(
       res => {
-        console.log(res.fechas)
+        console.log(res.fechas);
       },
       err => {
-
+        console.log(`No hay audios para mostrar en la fecha ${this.fechaSelec}`);
       }
-    )
-    /*this._audios.getPlayList(this.fechaSelec).subscribe(
+    );
+    this._audios.getPlayList(this.fechaSelec).subscribe(
       data => {
         this.playList = data.canciones[0].audios;
       },
       err => {
 
       }
-    )*/
-
-
+    );
   }
 
   toggleVisible() {
@@ -88,20 +86,21 @@ export class CaledarioComponent implements OnInit {
         start: this.fechaSelec,
         allDay: arg.allDay,
         backgroundColor: '#00ff00',
-        
+
       });
 
       this._audios.getPlayList(this.fechaSelec).subscribe(
         data => {
           this.playList = data.canciones[0].audios;
-          //console.log(this.playList);
+          console.log(data);
         },
         err => {
-  
+          console.log(`No hay audios para mostrar en la fecha ${this.fechaSelec}`);
+
         }
       )
       console.log(arg.date);
-      console.log(this.fechaSelec)
+      console.log(this.fechaSelec);
 
     }
   }
@@ -118,7 +117,7 @@ export class CaledarioComponent implements OnInit {
         start: fech,
         allDay: arg.allDay,
         backgroundColor: '#00ff00',
-        
+
       });
     }
   }

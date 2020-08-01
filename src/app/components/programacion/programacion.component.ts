@@ -15,6 +15,7 @@ import { Canciones } from "../../interfaces/canciones.interface";
 import { Reproductor } from "../../interfaces/reproductor.interface";
 import { ReproductorService } from 'src/app/services/reproductor.service';
 import Swal from 'sweetalert2';
+import { element } from 'protractor';
 
 
 @Component({
@@ -119,13 +120,16 @@ export class ProgramacionComponent implements OnInit {
       }
 
       if (this.datos.length > 1) {
-        let posRelativo = event.currentIndex;
+        const posRelativo = event.currentIndex;
         this.duracionTotal = this.duracionTotal + Number(this.datos[posRelativo].duracion);
       } else {
         this.duracionTotal = Number(this.datos[this.datos.length - 1].duracion);
       }
+
+      this.recogerDatosReproductor();
+
+      // console.log(this.reproductor.audios);
     }
-    console.log(this.recogerDatosReproductor());
   }
 
   horaInicio(posicion: number, duracionAnterior: number) {
@@ -189,6 +193,10 @@ export class ProgramacionComponent implements OnInit {
     let indice: number;
     let duracionAnterior: number;
     let durAudio: number;
+    let existe: any;
+
+
+
 
     for (const [index, dato] of this.datos.entries()) {
       indice = index + 1;
@@ -204,28 +212,35 @@ export class ProgramacionComponent implements OnInit {
       this.reproductor.fecha = this.fecha;
       this.reproductor.duracionTotal = this.duracionTotal;
 
-      this.reproductor.audios.push({
-        pos: indice,
-        nombre: dato.nombre,
-        autor: dato.autor,
-        tipo: dato.tipo,
-        duracion: durAudio,
-        horaInicio: this.horaInicio(indice, duracionAnterior),
-        horaFin: this.horaFin(indice, durAudio, this.horaInicio(indice, duracionAnterior))
+      existe = this.reproductor.audios.find((elemento) => {
+        return elemento.nombre === dato.nombre;
       });
 
+      if (existe === undefined) {
+
+        this.reproductor.audios.push({
+          pos: indice,
+          nombre: dato.nombre,
+          autor: dato.autor,
+          tipo: dato.tipo,
+          duracion: durAudio,
+          horaInicio: this.horaInicio(indice, duracionAnterior),
+          horaFin: this.horaFin(indice, durAudio, this.horaInicio(indice, duracionAnterior))
+        });
+        console.log('No existe!');
+      }
     }
 
-    // Eliminamos el primer elemento que esta vacio
-    this.reproductor.audios.shift();
+
 
     return this.reproductor;
   }
 
   guardar() {
-
-
     this.recogerDatosReproductor();
+
+    // Eliminamos el primer elemento que esta vacio
+    this.reproductor.audios.shift();
 
     // console.log(this.horaInicio(1, 200));
     console.log(this.reproductor);
