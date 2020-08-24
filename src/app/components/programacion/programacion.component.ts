@@ -75,12 +75,13 @@ export class ProgramacionComponent implements OnInit {
     private _audiosSevice: CancionesService,
     private _reproductorService: ReproductorService
   ) {
-
+    //Recogemos el parametro fecha que vino por url
     this.fecha = this.rutaActual.snapshot.params.fecha;
 
   }
 
   ngOnInit(): void {
+    //Hacemos la peticion a todas las canciones
     this._audiosSevice.getCancions().subscribe(
       res => {
         console.log(res);
@@ -91,6 +92,7 @@ export class ProgramacionComponent implements OnInit {
       }
     );
   }
+
 
   drop(event: CdkDragDrop<string[]>) {
 
