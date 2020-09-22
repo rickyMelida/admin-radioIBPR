@@ -36,6 +36,7 @@ import { SweetAlert2Module } from "@sweetalert2/ngx-sweetalert2";
 import { ListaAudiosComponent } from './components/lista-audios/lista-audios.component';
 import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
 import { ModificarComponent } from './components/modificar/modificar.component';
+import { PlaylistComponent } from './pages/playlist/playlist.component';
 
 @NgModule({
   declarations: [
@@ -53,7 +54,8 @@ import { ModificarComponent } from './components/modificar/modificar.component';
     ProgramarComponent,
     AgregarCancionComponent,
     ListaAudiosComponent,
-    ModificarComponent
+    ModificarComponent,
+    PlaylistComponent
   ],
   imports: [
     BrowserModule,

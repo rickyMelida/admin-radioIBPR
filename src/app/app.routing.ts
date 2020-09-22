@@ -7,6 +7,7 @@ import { CalendarComponent } from './pages/calendar/calendar.component';
 import { LoginComponent } from './pages/login/login.component';
 import { ProgramarComponent } from './pages/programar/programar.component';
 import { AgregarCancionComponent } from './components/agregar-cancion/agregar-cancion.component';
+import { PlaylistComponent } from './pages/playlist/playlist.component';
 
 const appRutes: Routes = [
   { path: '', component:  LoginComponent},
@@ -15,7 +16,8 @@ const appRutes: Routes = [
   { path: 'audios', component:  AudiosComponent},
   { path: 'calendar', component:  CalendarComponent},
   { path: 'programar/:fecha', component: ProgramarComponent},
-  { path: 'agregar', component: AgregarCancionComponent}
+  { path: 'agregar', component: AgregarCancionComponent},
+  { path: 'playlist', component: PlaylistComponent }
 
 ];
 
