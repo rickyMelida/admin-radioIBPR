@@ -24,7 +24,7 @@ export class CancionesService {
 
   // Extraemos todas las canciones
   getCancions(): Observable<any> {
-    return this._http.get(this.url + 'canciones');
+    return this._http.get(this.url + 'audios');
   }
 
   agregaAudio(data): Observable<any> {

@@ -10,7 +10,7 @@ export class ReproductorService {
   public url: string;
 
   constructor(private _http: HttpClient) {
-    this.url = GlobalAudios.urlReproductor;
+    this.url = GlobalAudios.urlPlaylist
   }
 
   getPlayList(fecha): Observable<any> {
