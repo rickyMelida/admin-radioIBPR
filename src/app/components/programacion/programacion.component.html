@@ -1,23 +1,29 @@
 <div class="container">
   <div class="row">
     <div class="col-md-12">
-      <h1>Programar canciones</h1>
+      <h1 class="text-light text-center m-2">Cargar Playlist</h1>
     </div>
   </div>
 
-  <div cdkDropListGroup class="row">
-    <div class="example-container col-md-6">
-      <h2 class="text-light text-center m-2">Audios</h2>
-
+  <div cdkDropListGroup class="row justify-content-center audios-section">
+    <div class="example-container col-md-4">
+      <h2 class="text-light text-center">Audios</h2>
+      <div class="row justify-content-center">
+        <form action="">
+          <label for="search" class="text-light">Buscar:</label>
+          <input type="text" name="search" class="form-control" id="search">
+        </form>
+      </div>
       <div cdkDropList [cdkDropListData]="audiosTodos" (cdkDropListDropped)="drop($event)"
         [cdkDropListEnterPredicate]="false" class="ml-3">
-        <div class="items text-light" *ngFor="let audios of audiosTodos; index as i" cdkDrag>
-          {{ i + 1 }}-{{ audios.autor }} - {{ audios.nombre }}
+        <div class="items items-audios text-light" *ngFor="let audios of audiosTodos; index as i" cdkDrag>
+          {{ i + 1 }}- {{ audios.nombre }} <br> {{ audios.autor }}
+          <span> {{ duracionMinutos(audios.duracion) }} </span>
         </div>
       </div>
     </div>
 
-    <div class="example-container col-md-6">
+    <div class="example-container col-md-4">
       <div class="row m-2">
         <div class="col-md-12">
           <h2 class="text-light text-center">Playlist</h2>
@@ -27,9 +33,21 @@
       <div class="row">
         <form class=".col-md-6 .col-md-offset-3">
           <div class="form-group row">
-            <label for="nombrePlaylist" class="col-sm-6 col-form-label text-right text-light">Nombre Playlist: </label>
+            <label for="nombrePlaylist" class="col-sm-6 col-form-label text-right text-light">Nombre Playlist:</label>
+
+
             <div class="col-sm-6">
-              <input type="text" class="form-control" id="nombrePlaylist">
+              <input
+                type="text"
+                class="form-control"
+                id="nombrePlaylist"
+                name="nombre"
+                #nombre="ngModel"
+                [(ngModel)] = "reproductor.nombre"
+                autofocus
+                required
+                autocomplete="off"
+                pattern="[a-zA-Z]+">
             </div>
           </div>
         </form>
@@ -41,23 +59,23 @@
         <div class="col-md-9">
           <div cdkDropList [cdkDropListData]="datos" (cdkDropListDropped)="drop($event)" class="ml-3">
             <div class="items text-light" *ngFor="let reproduce of datos; index as i" cdkDrag>
-              {{ i + 1 }}-{{ reproduce.autor }} - {{ reproduce.nombre }}
+              {{ i + 1 }}-{{ reproduce.nombre }} <br> {{ reproduce.autor }}
             </div>
           </div>
         </div>
         <div class="col-md-3">
-          <div class="alert alert-dark mt-3" role="alert" *ngFor="let reproduce of datos; index as i">
+          <div class="alert alert-dark mt-2" role="alert" *ngFor="let reproduce of datos; index as i">
             <span class="alert-link d-flex justify-content-center">
-              {{ duracionMinutos(duracionTotal) }}</span>
+              {{ duracionTotal }}</span>
           </div>
         </div>
       </div>
 
       <div class="px-3 m-5">
-        <button type="button" class="btn btn-primary btn-lg m-3" (click)="guardar()">
+        <button type="button" class="btn btn-primary btn-lg m-3" >
           Guardar
         </button>
-        <button type="button" class="btn btn-secondary btn-lg ml-5">
+        <button type="button" class="btn btn-secondary btn-lg ml-5" (click)='mostrarNombre()'>
           Cancelar
         </button>
       </div>

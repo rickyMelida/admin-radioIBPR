@@ -50,8 +50,8 @@ export class ProgramacionComponent implements OnInit {
 
   // Iniciamos todas las canciones que se van a guardar en la seccion de reproduccion en null o vacio
   reproductor: Reproductor = {
-    fecha: '',
-    duracionTotal: null,
+    nombre: '',
+    durTotal: null,
     audios:
       [
         {
@@ -72,16 +72,18 @@ export class ProgramacionComponent implements OnInit {
   constructor(
     private rutaActual: ActivatedRoute,
     private router: Router,
+    // tslint:disable-next-line: variable-name
     private _audiosSevice: CancionesService,
+    // tslint:disable-next-line: variable-name
     private _reproductorService: ReproductorService
   ) {
-    //Recogemos el parametro fecha que vino por url
+    // Recogemos el parametro fecha que vino por url
     this.fecha = this.rutaActual.snapshot.params.fecha;
 
   }
 
   ngOnInit(): void {
-    //Hacemos la peticion a todas las canciones
+    // Hacemos la peticion a todas las canciones
     this._audiosSevice.getCancions().subscribe(
       res => {
         console.log(res);
@@ -130,7 +132,11 @@ export class ProgramacionComponent implements OnInit {
 
       this.recogerDatosReproductor();
 
-      // console.log(this.reproductor.audios);
+      console.log(this.reproductor);
+
+    /*  this.datos.forEach(res => {
+        console.log( 'Los audios son: ' + res.nombre);
+      });*/
     }
   }
 
@@ -187,22 +193,23 @@ export class ProgramacionComponent implements OnInit {
       salida = `${horas}:${min}0:${seg}`;
 
     }
-    //console.log(`El minuto dura ${min} y segundo dura ${seg}`);
+    // console.log(`El minuto dura ${min} y segundo dura ${seg}`);
     return salida;
   }
 
   recogerDatosReproductor(): Reproductor {
     let indice: number;
     let duracionAnterior: number;
-    let durAudio: number;
+    let durationAudio: number;
     let existe: any;
 
 
 
 
     for (const [index, dato] of this.datos.entries()) {
+      // indice del audio
       indice = index + 1;
-      durAudio = Math.round(dato.duracion);
+      durationAudio = Math.round(dato.duracion);
 
       if (index === 0) {
         duracionAnterior = 0;
@@ -211,8 +218,7 @@ export class ProgramacionComponent implements OnInit {
 
       }
 
-      this.reproductor.fecha = this.fecha;
-      this.reproductor.duracionTotal = this.duracionTotal;
+      this.reproductor.durTotal = this.duracionTotal;
 
       existe = this.reproductor.audios.find((elemento) => {
         return elemento.nombre === dato.nombre;
@@ -225,11 +231,13 @@ export class ProgramacionComponent implements OnInit {
           nombre: dato.nombre,
           autor: dato.autor,
           tipo: dato.tipo,
-          duracion: durAudio,
+          duracion: durationAudio,
           horaInicio: this.horaInicio(indice, duracionAnterior),
-          horaFin: this.horaFin(indice, durAudio, this.horaInicio(indice, duracionAnterior))
+          horaFin: this.horaFin(indice, durationAudio, this.horaInicio(indice, duracionAnterior))
         });
-        console.log('No existe!');
+        console.log('No existe! ' + existe);
+      } else {
+        console.log('La musica ya existe ' + existe[0]);
       }
     }
 
@@ -238,7 +246,7 @@ export class ProgramacionComponent implements OnInit {
     return this.reproductor;
   }
 
-  guardar() {
+/*  guardar() {
     this.recogerDatosReproductor();
 
     // Eliminamos el primer elemento que esta vacio
@@ -269,6 +277,10 @@ export class ProgramacionComponent implements OnInit {
       }
     );
 
+  }*/
+
+  mostrarNombre() {
+    console.log(this.reproductor.nombre);
   }
 
 }
