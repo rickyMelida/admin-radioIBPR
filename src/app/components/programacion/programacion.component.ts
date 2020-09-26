@@ -246,7 +246,10 @@ export class ProgramacionComponent implements OnInit {
     return this.reproductor;
   }
 
-/*  guardar() {
+  save() {
+    console.log(this.reproductor);
+  }
+  guardar() {
     this.recogerDatosReproductor();
 
     // Eliminamos el primer elemento que esta vacio
@@ -272,12 +275,12 @@ export class ProgramacionComponent implements OnInit {
           icon: 'error',
           title: 'Error!!',
           text: 'Se produjo un pequeño error al intentar guardar la lista de reproduccion, favor vuelva a intentar'
-        })
+        });
 
       }
     );
 
-  }*/
+  }
 
   mostrarNombre() {
     console.log(this.reproductor.nombre);

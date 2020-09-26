@@ -33,13 +33,12 @@
       <div class="row">
         <form class=".col-md-6 .col-md-offset-3">
           <div class="form-group row">
-            <label for="nombrePlaylist" class="col-sm-6 col-form-label text-right text-light">Nombre Playlist:</label>
+            <label for="nombrePlaylist" class="col-sm-6 col-form-label text-center text-light">Nombre Playlist:</label>
 
-
-            <div class="col-sm-6">
+            <div class="col-sm-6 ">
               <input
                 type="text"
-                class="form-control"
+                class="form-control mr-4"
                 id="nombrePlaylist"
                 name="nombre"
                 #nombre="ngModel"
@@ -71,11 +70,11 @@
         </div>
       </div>
 
-      <div class="px-3 m-5">
-        <button type="button" class="btn btn-primary btn-lg m-3" >
+      <div class="px-3 my-5">
+        <button type="button" class="btn btn-primary m-5 " (click)="guardar()" >
           Guardar
         </button>
-        <button type="button" class="btn btn-secondary btn-lg ml-5" (click)='mostrarNombre()'>
+        <button type="button" class="btn btn-secondary m-3" (click)='mostrarNombre()'>
           Cancelar
         </button>
       </div>
