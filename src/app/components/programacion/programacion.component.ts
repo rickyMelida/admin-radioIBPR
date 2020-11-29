@@ -16,6 +16,8 @@ import { Reproductor } from "../../interfaces/reproductor.interface";
 import { ReproductorService } from 'src/app/services/reproductor.service';
 import Swal from 'sweetalert2';
 import { element } from 'protractor';
+import { log } from 'console';
+import { ConstantPool } from '@angular/compiler';
 
 
 @Component({
@@ -130,13 +132,9 @@ export class ProgramacionComponent implements OnInit {
         this.duracionTotal = Number(this.datos[this.datos.length - 1].duracion);
       }
 
-      this.recogerDatosReproductor();
+      // this.recogerDatosReproductor();
+      // this.save();
 
-      console.log(this.reproductor);
-
-    /*  this.datos.forEach(res => {
-        console.log( 'Los audios son: ' + res.nombre);
-      });*/
     }
   }
 
@@ -197,6 +195,7 @@ export class ProgramacionComponent implements OnInit {
     return salida;
   }
 
+
   recogerDatosReproductor(): Reproductor {
     let indice: number;
     let duracionAnterior: number;
@@ -204,18 +203,19 @@ export class ProgramacionComponent implements OnInit {
     let existe: any;
 
 
-
-
+    // Recorremos el array de los audios que fueron seleccionados
     for (const [index, dato] of this.datos.entries()) {
       // indice del audio
       indice = index + 1;
+
+      // Duracion de cada audio
       durationAudio = Math.round(dato.duracion);
 
       if (index === 0) {
         duracionAnterior = 0;
       } else {
-        duracionAnterior = Math.round(this.datos[index - 1].duracion);
-
+        // duracionAnterior = Math.round(this.datos[index - 1].duracion);
+        duracionAnterior = Math.round(this.duracionTotal);
       }
 
       this.reproductor.durTotal = this.duracionTotal;
@@ -235,20 +235,16 @@ export class ProgramacionComponent implements OnInit {
           horaInicio: this.horaInicio(indice, duracionAnterior),
           horaFin: this.horaFin(indice, durationAudio, this.horaInicio(indice, duracionAnterior))
         });
-        console.log('No existe! ' + existe);
+        console.log(`La duracion anterior de ${dato.nombre} es ${duracionAnterior}`);
+        // console.log('No existe! ' + existe);
       } else {
-        console.log('La musica ya existe ' + existe[0]);
+        // console.log('La musica ya existe ' + existe[0]);
       }
     }
-
-
 
     return this.reproductor;
   }
 
-  save() {
-    console.log(this.reproductor);
-  }
   guardar() {
     this.recogerDatosReproductor();
 
@@ -258,32 +254,36 @@ export class ProgramacionComponent implements OnInit {
     // console.log(this.horaInicio(1, 200));
     console.log(this.reproductor);
 
-    this._reproductorService.add(this.reproductor).subscribe(
-      res => {
-        Swal.fire({
-          icon: res.status,
-          title: 'Excelente!',
-          text: res.mensaje
-        }).then((res) => {
-          if (res.value) {
-            this.router.navigate(['/calendar']);
-          }
-        });
-      },
-      err => {
-        Swal.fire({
-          icon: 'error',
-          title: 'Error!!',
-          text: 'Se produjo un pequeño error al intentar guardar la lista de reproduccion, favor vuelva a intentar'
-        });
+    // this._reproductorService.add(this.reproductor).subscribe(
+    //   res => {
+    //     Swal.fire({
+    //       icon: res.status,
+    //       title: 'Excelente!',
+    //       text: res.mensaje
+    //     }).then((res) => {
+    //       if (res.value) {
+    //         this.router.navigate(['/calendar']);
+    //       }
+    //     });
+    //   },
+    //   err => {
+    //     console.log(err.error.status);
+    //     Swal.fire({
+    //       icon: err.error.status,
+    //       title: 'Error!!',
+    //       text: err.error.mensaje
+    //       // text: 'Se produjo un pequeño error al intentar guardar la lista de reproduccion, favor vuelva a intentar'
+    //     });
 
-      }
-    );
+    //   }
+    // );
 
   }
 
-  mostrarNombre() {
-    console.log(this.reproductor.nombre);
+  data() {
+    let data = this.recogerDatosReproductor();
+
+    console.log(data);
   }
 
 }
